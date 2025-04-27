@@ -1,5 +1,6 @@
 package entities;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class InventoryMovementHistory {
@@ -17,11 +18,25 @@ public class InventoryMovementHistory {
         this.inventoryMovementHistory = inventoryMovementHistory;
     }
 
-    public void addInventoryMovement() {
-        // lógica para agregar un nuevo movimiento
+    // Agregar un nuevo movimiento
+    public void addInventoryMovement(InventoryMovement movement) {
+        this.inventoryMovementHistory.add(movement);
     }
 
+    // Generar un reporte de todos los movimientos
     public void report() {
-        // lógica para generar un reporte (ej. varianza)
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        
+        System.out.println("----- Reporte de Movimientos de Inventario -----");
+        if (inventoryMovementHistory.isEmpty()) {
+            System.out.println("No hay movimientos registrados.");
+            return;
+        }
+
+        for (InventoryMovement movement : inventoryMovementHistory) {
+            System.out.println("Fecha del movimiento: " + formatter.format(movement.getDate()));
+            movement.printStatus();
+            System.out.println("-------------------------------------------");
+        }
     }
 }

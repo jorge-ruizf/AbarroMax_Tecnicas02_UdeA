@@ -4,9 +4,6 @@
  */
 package abarromax;
 
-import java.awt.Frame;
-import javax.swing.SwingUtilities;
-
 /**
  *
  * @author jorge
@@ -30,36 +27,10 @@ public class SaleUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        searchCategorieInventory6 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        home = new javax.swing.JButton();
-        before = new javax.swing.JButton();
-        inventaryTextArea = new javax.swing.JTextArea();
-        jPanel2 = new javax.swing.JPanel();
-        searchCategorieInventory = new javax.swing.JButton();
-        comboBoxCategorie = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        JPanelBusquedaSale = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-
-        searchCategorieInventory6.setBackground(new java.awt.Color(0, 153, 153));
-        searchCategorieInventory6.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
-        searchCategorieInventory6.setForeground(new java.awt.Color(255, 255, 255));
-        searchCategorieInventory6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifying-glass-solid.png"))); // NOI18N
-        searchCategorieInventory6.setText("  Search");
-        searchCategorieInventory6.setActionCommand("searchCategorieInventory");
-        searchCategorieInventory6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        searchCategorieInventory6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchCategorieInventory6(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 400));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setForeground(new java.awt.Color(0, 153, 153));
@@ -68,205 +39,38 @@ public class SaleUI extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sale");
 
-        home.setBackground(new java.awt.Color(0, 153, 153));
-        home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-home.png"))); // NOI18N
-        home.setActionCommand("goMain");
-        home.setBorder(null);
-        home.setBorderPainted(false);
-        home.setContentAreaFilled(false);
-        home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        home.setPreferredSize(new java.awt.Dimension(518, 519));
-        home.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                homegoHome(evt);
-            }
-        });
-
-        before.setBackground(new java.awt.Color(0, 153, 153));
-        before.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/arrow-left-solid.png"))); // NOI18N
-        before.setActionCommand("goBefore");
-        before.setBorder(null);
-        before.setBorderPainted(false);
-        before.setContentAreaFilled(false);
-        before.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        before.setPreferredSize(new java.awt.Dimension(518, 519));
-        before.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                beforegoBefore(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(before, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(198, 198, 198)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(342, 342, 342)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addContainerGap(348, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(before, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jLabel1)
                 .addContainerGap())
         );
-
-        inventaryTextArea.setEditable(false);
-        inventaryTextArea.setColumns(20);
-        inventaryTextArea.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        inventaryTextArea.setRows(5);
-        inventaryTextArea.setText("Leche: 24 unidades es de vaca\n\n\n\n\n\n! El producto leche esta por sobrecupo");
-
-        searchCategorieInventory.setBackground(new java.awt.Color(0, 153, 153));
-        searchCategorieInventory.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
-        searchCategorieInventory.setForeground(new java.awt.Color(255, 255, 255));
-        searchCategorieInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifying-glass-solid.png"))); // NOI18N
-        searchCategorieInventory.setText("  Search");
-        searchCategorieInventory.setActionCommand("searchCategorieInventory");
-        searchCategorieInventory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        searchCategorieInventory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchCategorieInventory(evt);
-            }
-        });
-
-        comboBoxCategorie.setFont(new java.awt.Font("Nexa Extra Light", 0, 14)); // NOI18N
-        comboBoxCategorie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alls" }));
-        comboBoxCategorie.setActionCommand("comboBoxCategorie");
-        comboBoxCategorie.setAutoscrolls(true);
-        comboBoxCategorie.setInheritsPopupMenu(true);
-        comboBoxCategorie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxCategorieActionPerformed(evt);
-            }
-        });
-
-        jTextField1.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(comboBoxCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(searchCategorieInventory)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboBoxCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(searchCategorieInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(176, Short.MAX_VALUE))
-        );
-
-        JPanelBusquedaSale.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        JPanelBusquedaSale.setInheritsPopupMenu(true);
-
-        jButton1.setText("+");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        JPanelBusquedaSale.add(jButton1);
-
-        jLabel2.setText("[112131] ");
-        JPanelBusquedaSale.add(jLabel2);
-
-        jScrollPane1.setViewportView(JPanelBusquedaSale);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inventaryTextArea, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(inventaryTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(0, 300, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void homegoHome(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homegoHome
-        this.dispose();
-        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
-        Main main = new Main(parent, true);
-        main.setVisible(true);
-    }//GEN-LAST:event_homegoHome
-
-    private void beforegoBefore(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beforegoBefore
-        this.dispose();
-        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
-        InventoryUI inventoryUI = new InventoryUI(parent, true);
-        inventoryUI.setVisible(true);
-    }//GEN-LAST:event_beforegoBefore
-
-    private void searchCategorieInventory6(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory6
-
-    }//GEN-LAST:event_searchCategorieInventory6
-
-    private void searchCategorieInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory
-
-    }//GEN-LAST:event_searchCategorieInventory
-
-    private void comboBoxCategorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCategorieActionPerformed
-
-    }//GEN-LAST:event_comboBoxCategorieActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,19 +115,7 @@ public class SaleUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel JPanelBusquedaSale;
-    private javax.swing.JButton before;
-    private javax.swing.JComboBox<String> comboBoxCategorie;
-    private javax.swing.JButton home;
-    private javax.swing.JTextArea inventaryTextArea;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton searchCategorieInventory;
-    private javax.swing.JButton searchCategorieInventory6;
     // End of variables declaration//GEN-END:variables
 }

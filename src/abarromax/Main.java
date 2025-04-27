@@ -56,16 +56,13 @@ public class Main extends javax.swing.JDialog {
         title = new javax.swing.JLabel();
         home = new javax.swing.JButton();
         before = new javax.swing.JButton();
-        goReport = new javax.swing.JButton();
-        goCatalog = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         goSale.setBackground(new java.awt.Color(0, 153, 153));
         goSale.setFont(new java.awt.Font("Nexa Heavy", 0, 36)); // NOI18N
         goSale.setForeground(new java.awt.Color(255, 255, 255));
-        goSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/shop-solid.png"))); // NOI18N
-        goSale.setText("  Sale");
+        goSale.setText("Sale");
         goSale.setActionCommand("btnSale");
         goSale.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         goSale.addActionListener(new java.awt.event.ActionListener() {
@@ -77,8 +74,7 @@ public class Main extends javax.swing.JDialog {
         goInventory1.setBackground(new java.awt.Color(0, 153, 153));
         goInventory1.setFont(new java.awt.Font("Nexa Heavy", 0, 36)); // NOI18N
         goInventory1.setForeground(new java.awt.Color(255, 255, 255));
-        goInventory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/warehouse-solid.png"))); // NOI18N
-        goInventory1.setText("  Inventory");
+        goInventory1.setText("Inventory");
         goInventory1.setActionCommand("btnInventory");
         goInventory1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         goInventory1.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +88,6 @@ public class Main extends javax.swing.JDialog {
 
         title.setFont(new java.awt.Font("Nexa Heavy", 1, 48)); // NOI18N
         title.setForeground(new java.awt.Color(255, 255, 255));
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("AbarroMax");
 
         home.setBackground(new java.awt.Color(0, 153, 153));
@@ -130,81 +125,48 @@ public class Main extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(before, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(title)
+                .addGap(119, 119, 119)
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(before, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(title)
-                .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(title))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(before, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        goReport.setBackground(new java.awt.Color(0, 153, 153));
-        goReport.setFont(new java.awt.Font("Nexa Heavy", 0, 36)); // NOI18N
-        goReport.setForeground(new java.awt.Color(255, 255, 255));
-        goReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bell-solid.png"))); // NOI18N
-        goReport.setText("  Report");
-        goReport.setActionCommand("btnReport");
-        goReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        goReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goReport(evt);
-            }
-        });
-
-        goCatalog.setBackground(new java.awt.Color(0, 153, 153));
-        goCatalog.setFont(new java.awt.Font("Nexa Heavy", 0, 36)); // NOI18N
-        goCatalog.setForeground(new java.awt.Color(255, 255, 255));
-        goCatalog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book-open-solid.png"))); // NOI18N
-        goCatalog.setText("  Catalog");
-        goCatalog.setActionCommand("btnCatalog");
-        goCatalog.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        goCatalog.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goCatalog(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(goInventory1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(goCatalog, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(goSale, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(goReport, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                    .addComponent(goInventory1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(229, 229, 229))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(goInventory1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(goSale, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(goCatalog, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(goReport, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(goInventory1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(goSale, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
 
         pack();
@@ -230,14 +192,6 @@ public class Main extends javax.swing.JDialog {
     private void goBefore(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBefore
         // TODO add your handling code here:
     }//GEN-LAST:event_goBefore
-
-    private void goReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goReport
-        // TODO add your handling code here:
-    }//GEN-LAST:event_goReport
-
-    private void goCatalog(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goCatalog
-        // TODO add your handling code here:
-    }//GEN-LAST:event_goCatalog
 
     /**
      * @param args the command line arguments
@@ -290,9 +244,7 @@ public class Main extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton before;
-    private javax.swing.JButton goCatalog;
     private javax.swing.JButton goInventory1;
-    private javax.swing.JButton goReport;
     private javax.swing.JButton goSale;
     private javax.swing.JButton home;
     private javax.swing.JPanel jPanel1;

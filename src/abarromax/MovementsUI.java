@@ -4,9 +4,6 @@
  */
 package abarromax;
 
-import java.awt.Frame;
-import javax.swing.SwingUtilities;
-
 /**
  *
  * @author jorge
@@ -19,11 +16,6 @@ public class MovementsUI extends javax.swing.JDialog {
     public MovementsUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
-        this.jPanelMovements.removeAll();
-        this.jPanelMovements.add(new MovementsHistoryJPanelUI(), java.awt.BorderLayout.CENTER);
-        this.jPanelMovements.revalidate();
-        this.jPanelMovements.repaint();
     }
 
     /**
@@ -35,224 +27,21 @@ public class MovementsUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        inventaryTextArea = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        home = new javax.swing.JButton();
-        before = new javax.swing.JButton();
-        jPanelMovements = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        selectHistoryJPanelMovements = new javax.swing.JButton();
-        selectLoadJPanelMovements = new javax.swing.JButton();
-        selectUploadJPanelMovements = new javax.swing.JButton();
-
-        inventaryTextArea.setEditable(false);
-        inventaryTextArea.setColumns(20);
-        inventaryTextArea.setRows(5);
-        inventaryTextArea.setText("El inventario esta vacio");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 400));
-
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel1.setForeground(new java.awt.Color(0, 153, 153));
-
-        jLabel1.setFont(new java.awt.Font("Nexa Heavy", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Movements");
-
-        home.setBackground(new java.awt.Color(0, 153, 153));
-        home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-home.png"))); // NOI18N
-        home.setActionCommand("goMain");
-        home.setBorder(null);
-        home.setBorderPainted(false);
-        home.setContentAreaFilled(false);
-        home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        home.setPreferredSize(new java.awt.Dimension(518, 519));
-        home.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goHome(evt);
-            }
-        });
-
-        before.setBackground(new java.awt.Color(0, 153, 153));
-        before.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/arrow-left-solid.png"))); // NOI18N
-        before.setActionCommand("goBefore");
-        before.setBorder(null);
-        before.setBorderPainted(false);
-        before.setContentAreaFilled(false);
-        before.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        before.setPreferredSize(new java.awt.Dimension(518, 519));
-        before.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goBefore(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(before, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(141, 141, 141)
-                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(before, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        jPanelMovements.setBackground(new java.awt.Color(51, 255, 51));
-        jPanelMovements.setMinimumSize(new java.awt.Dimension(541, 213));
-        jPanelMovements.setLayout(new java.awt.BorderLayout());
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 791, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 213, Short.MAX_VALUE)
-        );
-
-        jPanelMovements.add(jPanel3, java.awt.BorderLayout.CENTER);
-
-        selectHistoryJPanelMovements.setBackground(new java.awt.Color(0, 153, 153));
-        selectHistoryJPanelMovements.setFont(new java.awt.Font("Nexa Heavy", 0, 36)); // NOI18N
-        selectHistoryJPanelMovements.setForeground(new java.awt.Color(255, 255, 255));
-        selectHistoryJPanelMovements.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book-open-solid.png"))); // NOI18N
-        selectHistoryJPanelMovements.setText("  History");
-        selectHistoryJPanelMovements.setActionCommand("selectHistoryJPanelMovements");
-        selectHistoryJPanelMovements.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        selectHistoryJPanelMovements.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectHistoryJPanelMovements(evt);
-            }
-        });
-
-        selectLoadJPanelMovements.setBackground(new java.awt.Color(0, 153, 153));
-        selectLoadJPanelMovements.setFont(new java.awt.Font("Nexa Heavy", 0, 36)); // NOI18N
-        selectLoadJPanelMovements.setForeground(new java.awt.Color(255, 255, 255));
-        selectLoadJPanelMovements.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifying-glass-solid.png"))); // NOI18N
-        selectLoadJPanelMovements.setText("  Load");
-        selectLoadJPanelMovements.setActionCommand("selectLoadJPanelMovements");
-        selectLoadJPanelMovements.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        selectLoadJPanelMovements.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectLoadJPanelMovements(evt);
-            }
-        });
-
-        selectUploadJPanelMovements.setBackground(new java.awt.Color(0, 153, 153));
-        selectUploadJPanelMovements.setFont(new java.awt.Font("Nexa Heavy", 0, 36)); // NOI18N
-        selectUploadJPanelMovements.setForeground(new java.awt.Color(255, 255, 255));
-        selectUploadJPanelMovements.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/truck-moving-solid.png"))); // NOI18N
-        selectUploadJPanelMovements.setText("Upload");
-        selectUploadJPanelMovements.setActionCommand("selectUploadJPanelMovements");
-        selectUploadJPanelMovements.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        selectUploadJPanelMovements.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectUploadJPanelMovements(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(selectHistoryJPanelMovements, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(selectUploadJPanelMovements, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(selectLoadJPanelMovements, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selectHistoryJPanelMovements, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(selectUploadJPanelMovements, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(selectLoadJPanelMovements, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelMovements, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelMovements, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void goHome(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goHome
-        this.dispose();
-        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
-        Main main = new Main(parent, true);
-        main.setVisible(true);
-    }//GEN-LAST:event_goHome
-
-    private void goBefore(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBefore
-        this.dispose();
-        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
-        InventoryUI inventoryUI = new InventoryUI(parent, true);
-        inventoryUI.setVisible(true);
-    }//GEN-LAST:event_goBefore
-
-    private void selectHistoryJPanelMovements(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectHistoryJPanelMovements
-        this.jPanelMovements.removeAll();
-        this.jPanelMovements.add(new MovementsHistoryJPanelUI(), java.awt.BorderLayout.CENTER);
-        this.jPanelMovements.revalidate();
-        this.jPanelMovements.repaint();
-    }//GEN-LAST:event_selectHistoryJPanelMovements
-
-    private void selectLoadJPanelMovements(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectLoadJPanelMovements
-        this.jPanelMovements.removeAll();
-        this.jPanelMovements.add(new MovementsLoadJPanelUI(), java.awt.BorderLayout.CENTER);
-        this.jPanelMovements.revalidate();
-        this.jPanelMovements.repaint();
-    }//GEN-LAST:event_selectLoadJPanelMovements
-
-    private void selectUploadJPanelMovements(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectUploadJPanelMovements
-        this.jPanelMovements.removeAll();
-        this.jPanelMovements.add(new MovementsUploadJPanelUI(), java.awt.BorderLayout.CENTER);
-        this.jPanelMovements.revalidate();
-        this.jPanelMovements.repaint();    }//GEN-LAST:event_selectUploadJPanelMovements
 
     /**
      * @param args the command line arguments
@@ -298,16 +87,5 @@ public class MovementsUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton before;
-    private javax.swing.JButton home;
-    private javax.swing.JTextArea inventaryTextArea;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanelMovements;
-    private javax.swing.JButton selectHistoryJPanelMovements;
-    private javax.swing.JButton selectLoadJPanelMovements;
-    private javax.swing.JButton selectUploadJPanelMovements;
     // End of variables declaration//GEN-END:variables
 }
