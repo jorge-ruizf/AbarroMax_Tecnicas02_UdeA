@@ -52,7 +52,7 @@ public class Inventory {
         }
     }
 
-    // Gestión básica por consola: sumar, restar, eliminar
+    // Seccionar cada una de estas funciones
     public void manageProducts() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el ID del producto a gestionar: ");

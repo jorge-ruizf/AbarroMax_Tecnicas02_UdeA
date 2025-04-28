@@ -5,6 +5,8 @@
 package abarromax;
 
 import entities.Categories;
+import entities.AbarroMax;
+import entities.Product;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
@@ -224,8 +226,9 @@ public class InventoryUI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void printInventoryInScroll(){
-        String inventaryText = "primera linea";
-        for(int i = 0; i < 50; i++){
+        String inventaryText = "";
+        for(Product product : Abarromax.products){
+            
             inventaryText = inventaryText.concat("ababbsa\n");
         }
         
@@ -233,16 +236,8 @@ public class InventoryUI extends javax.swing.JDialog {
     }
     
     private void printComboBoxCategorie(){
-        // JComboBox<String> categories = new JComboBox<>();
-        ArrayList<String> categoriesStrings = new ArrayList();
-        categoriesStrings.add("Consumables");
-        categoriesStrings.add("Medicine");
-        categoriesStrings.add("Clothes");
-
-        Categories categories = new Categories(categoriesStrings);
-        
-        for(int i = 0; i < categories.getCategories().size(); i++){
-            comboBoxCategorie.addItem(categories.getCategories().get(i));
+        for(int i = 0; i < AbarroMax.categories.getCategories().size(); i++){
+            comboBoxCategorie.addItem(AbarroMax.categories.getCategories().get(i));
         }
     }
     

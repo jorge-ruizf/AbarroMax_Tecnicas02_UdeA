@@ -6,6 +6,9 @@ import java.util.Date;
 public class Sales {
     private ArrayList<Sale> sales;
 
+    public Sales() {
+    }
+
     public Sales(ArrayList<Sale> sales) {
         this.sales = sales;
     }

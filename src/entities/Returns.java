@@ -6,6 +6,9 @@ import java.util.ArrayList;
 public class Returns {
     private ArrayList<Sale> returns;
 
+    public Returns() {
+    }
+
     public Returns(ArrayList<Sale> returns) {
         this.returns = returns;
     }

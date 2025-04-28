@@ -41,9 +41,7 @@ public class SaleUI extends javax.swing.JDialog {
         comboBoxCategorie = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        JPanelBusquedaSale = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jTable1 = new javax.swing.JTable();
 
         searchCategorieInventory6.setBackground(new java.awt.Color(0, 153, 153));
         searchCategorieInventory6.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
@@ -59,7 +57,6 @@ public class SaleUI extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 400));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setForeground(new java.awt.Color(0, 153, 153));
@@ -186,21 +183,27 @@ public class SaleUI extends javax.swing.JDialog {
                 .addContainerGap(176, Short.MAX_VALUE))
         );
 
-        JPanelBusquedaSale.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        JPanelBusquedaSale.setInheritsPopupMenu(true);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Add", "Id", "Name", "Price", "Stock"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
 
-        jButton1.setText("+");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
-        JPanelBusquedaSale.add(jButton1);
-
-        jLabel2.setText("[112131] ");
-        JPanelBusquedaSale.add(jLabel2);
-
-        jScrollPane1.setViewportView(JPanelBusquedaSale);
+        jTable1.setColumnSelectionAllowed(true);
+        jTable1.setShowGrid(true);
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,8 +213,8 @@ public class SaleUI extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inventaryTextArea, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(inventaryTextArea)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -264,10 +267,6 @@ public class SaleUI extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -311,17 +310,15 @@ public class SaleUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel JPanelBusquedaSale;
     private javax.swing.JButton before;
     private javax.swing.JComboBox<String> comboBoxCategorie;
     private javax.swing.JButton home;
     private javax.swing.JTextArea inventaryTextArea;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton searchCategorieInventory;
     private javax.swing.JButton searchCategorieInventory6;

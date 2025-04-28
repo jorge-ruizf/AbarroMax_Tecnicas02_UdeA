@@ -6,6 +6,9 @@ import java.util.ArrayList;
 public class InventoryMovementHistory {
     private ArrayList<InventoryMovement> inventoryMovementHistory;
 
+    public InventoryMovementHistory() {
+    }
+
     public InventoryMovementHistory(ArrayList<InventoryMovement> inventoryMovementHistory) {
         this.inventoryMovementHistory = inventoryMovementHistory;
     }
