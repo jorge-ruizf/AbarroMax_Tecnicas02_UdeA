@@ -247,8 +247,8 @@ public class SaleUI extends javax.swing.JDialog {
     private void beforegoBefore(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beforegoBefore
         this.dispose();
         Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
-        InventoryUI inventoryUI = new InventoryUI(parent, true);
-        inventoryUI.setVisible(true);
+        Main main = new Main(parent, true);
+        main.setVisible(true);
     }//GEN-LAST:event_beforegoBefore
 
     private void searchCategorieInventory6(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory6

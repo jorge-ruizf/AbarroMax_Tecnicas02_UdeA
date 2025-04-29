@@ -53,6 +53,9 @@ public class MovementsUI extends javax.swing.JDialog {
         inventaryTextArea.setText("El inventario esta vacio");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationByPlatform(true);
+        setMaximumSize(new java.awt.Dimension(800, 400));
+        setMinimumSize(new java.awt.Dimension(800, 400));
         setPreferredSize(new java.awt.Dimension(800, 400));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
@@ -147,7 +150,7 @@ public class MovementsUI extends javax.swing.JDialog {
         selectLoadJPanelMovements.setBackground(new java.awt.Color(0, 153, 153));
         selectLoadJPanelMovements.setFont(new java.awt.Font("Nexa Heavy", 0, 36)); // NOI18N
         selectLoadJPanelMovements.setForeground(new java.awt.Color(255, 255, 255));
-        selectLoadJPanelMovements.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifying-glass-solid.png"))); // NOI18N
+        selectLoadJPanelMovements.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rotate-left-solid.png"))); // NOI18N
         selectLoadJPanelMovements.setText("  Load");
         selectLoadJPanelMovements.setActionCommand("selectLoadJPanelMovements");
         selectLoadJPanelMovements.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

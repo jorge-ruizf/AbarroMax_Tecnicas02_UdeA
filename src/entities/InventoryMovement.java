@@ -37,13 +37,15 @@ public class InventoryMovement {
     }
 
     // Método para mostrar el estado del movimiento
-    public void printStatus() {
+    public String printStatus() {
+        String text = new String();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        System.out.println("Fecha del movimiento: " + formatter.format(date));
-        System.out.println("Detalles del movimiento:");
+        text = text.concat("Movement Date: " + formatter.format(date) + "\n");
+        text = text.concat("Movement Detail:\n");
         for (Map.Entry<Integer, Integer> entry : inventory.entrySet()) {
-            System.out.println("Producto ID: " + entry.getKey() + " | Cantidad: " + entry.getValue());
+            text = text.concat("ID: " + entry.getKey() + " | Stock: " + entry.getValue() + "\n");
         }
+        return text;
     }
 }
 

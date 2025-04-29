@@ -97,14 +97,16 @@ public class Inventory {
     }
 
     // Mostrar estado actual del stock
-    public void printStockStatus() {
-        System.out.println("=== Estado Actual del Inventario ===");
+    public String printStockStatus() {
+        String text = new String();
+        text = text.concat("=== Actual Inventory Status ===\n");
         if (inventory.isEmpty()) {
-            System.out.println("No hay productos registrados.");
+            text = text.concat("The inventory is void");
         } else {
             for (Integer productId : inventory.keySet()) {
-                System.out.println("Producto ID: " + productId + " | Cantidad: " + inventory.get(productId));
+                text = text.concat("ID: " + productId + " | Stock: " + inventory.get(productId) + "\n");
             }
         }
+        return text;
     }
 }
