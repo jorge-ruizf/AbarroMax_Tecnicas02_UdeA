@@ -2,12 +2,12 @@ package entities;
 
 public class ProductSale {
     private int productId;
-    private int offerId;
+    private int offer;
     private int stock;
 
-    public ProductSale(int productId, int offerId, int stock) {
+    public ProductSale(int productId, int offer, int stock) {
         this.productId = productId;
-        this.offerId = offerId;
+        this.offer = offer;
         this.stock = stock;
     }
 
@@ -19,12 +19,12 @@ public class ProductSale {
         this.productId = productId;
     }
 
-    public int getOfferId() {
-        return offerId;
+    public int getOffer() {
+        return offer;
     }
 
-    public void setOfferId(int offerId) {
-        this.offerId = offerId;
+    public void setOffer(int offer) {
+        this.offer = offer;
     }
 
     public int getStock() {
@@ -45,7 +45,7 @@ public class ProductSale {
     // Mostrar detalles de la venta del producto
     public void showProductSaleDetails(float unitPrice, float discountPercent) {
         System.out.println("Producto ID: " + productId);
-        System.out.println("Oferta ID: " + offerId);
+        System.out.println("Oferta: " + offer);
         System.out.println("Cantidad Vendida: " + stock);
         System.out.println("Precio Unitario: $" + unitPrice);
         System.out.println("Descuento: " + discountPercent + "%");

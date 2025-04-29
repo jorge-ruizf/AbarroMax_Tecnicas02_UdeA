@@ -4,7 +4,18 @@
  */
 package abarromax;
 
+import entities.AbarroMax;
+import static entities.AbarroMax.categories;
+import static entities.AbarroMax.prices;
+import static entities.AbarroMax.products;
+import entities.Price;
+import entities.Product;
+import entities.ProductSale;
+import entities.Sale;
 import java.awt.Frame;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -16,9 +27,14 @@ public class SaleUI extends javax.swing.JDialog {
     /**
      * Creates new form SaleUI
      */
+    private Sale sale;
+    
     public SaleUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.printInventoryInScroll();
+        this.printComboBoxCategorie();
+        sale = new Sale();
     }
 
     /**
@@ -35,13 +51,23 @@ public class SaleUI extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         home = new javax.swing.JButton();
         before = new javax.swing.JButton();
+        searchCategorieInventory = new javax.swing.JButton();
+        JTextFieldSearch = new javax.swing.JTextField();
+        comboBoxCategorie = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
         inventaryTextArea = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
-        searchCategorieInventory = new javax.swing.JButton();
-        comboBoxCategorie = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        btnAddProduct = new javax.swing.JButton();
+        jYearChooserIdProduct = new com.toedter.calendar.JYearChooser();
+        jYearChooserQuantity = new com.toedter.calendar.JYearChooser();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnDeleteProduct = new javax.swing.JButton();
+        jYearChooserDiscount = new com.toedter.calendar.JYearChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        saleTextArea = new javax.swing.JTextArea();
+        btnSale = new javax.swing.JButton();
 
         searchCategorieInventory6.setBackground(new java.awt.Color(0, 153, 153));
         searchCategorieInventory6.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
@@ -57,6 +83,9 @@ public class SaleUI extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(800, 400));
+        setMinimumSize(new java.awt.Dimension(800, 400));
+        setPreferredSize(new java.awt.Dimension(800, 400));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setForeground(new java.awt.Color(0, 153, 153));
@@ -102,7 +131,7 @@ public class SaleUI extends javax.swing.JDialog {
                 .addComponent(before, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(198, 198, 198)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
@@ -117,12 +146,6 @@ public class SaleUI extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        inventaryTextArea.setEditable(false);
-        inventaryTextArea.setColumns(20);
-        inventaryTextArea.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        inventaryTextArea.setRows(5);
-        inventaryTextArea.setText("Leche: 24 unidades es de vaca\n\n\n\n\n\n! El producto leche esta por sobrecupo");
-
         searchCategorieInventory.setBackground(new java.awt.Color(0, 153, 153));
         searchCategorieInventory.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
         searchCategorieInventory.setForeground(new java.awt.Color(255, 255, 255));
@@ -133,6 +156,13 @@ public class SaleUI extends javax.swing.JDialog {
         searchCategorieInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchCategorieInventory(evt);
+            }
+        });
+
+        JTextFieldSearch.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        JTextFieldSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTextFieldSearchActionPerformed(evt);
             }
         });
 
@@ -147,12 +177,55 @@ public class SaleUI extends javax.swing.JDialog {
             }
         });
 
-        jTextField1.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        inventaryTextArea.setEditable(false);
+        inventaryTextArea.setColumns(20);
+        inventaryTextArea.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        inventaryTextArea.setRows(5);
+        jScrollPane1.setViewportView(inventaryTextArea);
+
+        jLabel2.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
+        jLabel2.setText("ID:");
+
+        btnAddProduct.setBackground(new java.awt.Color(0, 153, 153));
+        btnAddProduct.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
+        btnAddProduct.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/upload-solid.png"))); // NOI18N
+        btnAddProduct.setText("  Add");
+        btnAddProduct.setActionCommand("searchCategorieInventory");
+        btnAddProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                btnAddProduct(evt);
             }
         });
+
+        jYearChooserIdProduct.setMinimum(0);
+        jYearChooserIdProduct.setValue(0);
+
+        jYearChooserQuantity.setMinimum(0);
+        jYearChooserQuantity.setValue(0);
+
+        jLabel3.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
+        jLabel3.setText("Quantity:");
+
+        jLabel4.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
+        jLabel4.setText("Discount:");
+
+        btnDeleteProduct.setBackground(new java.awt.Color(0, 153, 153));
+        btnDeleteProduct.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
+        btnDeleteProduct.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rotate-left-solid.png"))); // NOI18N
+        btnDeleteProduct.setText("  Delete");
+        btnDeleteProduct.setActionCommand("searchCategorieInventory");
+        btnDeleteProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeleteProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteProduct(evt);
+            }
+        });
+
+        jYearChooserDiscount.setMinimum(0);
+        jYearChooserDiscount.setValue(0);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -161,62 +234,83 @@ public class SaleUI extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(comboBoxCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(searchCategorieInventory)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jYearChooserIdProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jYearChooserQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(btnDeleteProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jYearChooserDiscount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jYearChooserIdProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboBoxCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(searchCategorieInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jYearChooserQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jYearChooserDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Add", "Id", "Name", "Price", "Stock"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
-            };
+        saleTextArea.setColumns(20);
+        saleTextArea.setRows(5);
+        jScrollPane2.setViewportView(saleTextArea);
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        btnSale.setBackground(new java.awt.Color(0, 153, 153));
+        btnSale.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
+        btnSale.setForeground(new java.awt.Color(255, 255, 255));
+        btnSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cart-shopping-solid.png"))); // NOI18N
+        btnSale.setText("  Sale");
+        btnSale.setActionCommand("searchCategorieInventory");
+        btnSale.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSale(evt);
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inventaryTextArea)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1)
+                    .addComponent(btnSale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(JTextFieldSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(comboBoxCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(searchCategorieInventory)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -225,18 +319,66 @@ public class SaleUI extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(inventaryTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboBoxCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchCategorieInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSale, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void printInventoryInScroll(){
+        String inventaryText = "";
+        
+        HashMap<Integer, Integer> inventory = AbarroMax.inventory.getInventory();
+        
+        // Recorrer el HashMap
+        for(Map.Entry<Integer, Integer> entry : inventory.entrySet()){
+            Integer key = entry.getKey();
+            Integer value = entry.getValue();
+            
+            // Mostrar
+            
+            Product product = products.get(key);
+            String categorie = categories.getCategories().get(product.getCategoryId());
+            
+            int selectedCategorie = comboBoxCategorie.getSelectedIndex() - 1;
+            String selectedName = JTextFieldSearch.getText();
+            
+            if(selectedCategorie == -1 || product.getCategoryId() == selectedCategorie){
+                if(selectedName.equals("") || product.getName().toLowerCase().contains(selectedName.toLowerCase() )){
+                    inventaryText = inventaryText.concat("ID: " + key + " | Name: " + product.getName() + " | Categorie: " + categorie + " | Stock: " + value + " | Suplieer: " + product.getSupplier() + "\n");
+                }
+            }
+        }
+        
+        if(inventaryText.equals("")){
+            inventaryText = inventaryText.concat("The inventory is void!");
+        }
+        
+        this.inventaryTextArea.setText(inventaryText);
+    }
+    
+    private void printComboBoxCategorie(){
+        for(int i = 0; i < AbarroMax.categories.getCategories().size(); i++){
+            comboBoxCategorie.addItem(AbarroMax.categories.getCategories().get(i));
+        }
+    }
+    
     private void homegoHome(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homegoHome
         this.dispose();
         Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
@@ -256,17 +398,111 @@ public class SaleUI extends javax.swing.JDialog {
     }//GEN-LAST:event_searchCategorieInventory6
 
     private void searchCategorieInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory
-
+        this.printInventoryInScroll();
     }//GEN-LAST:event_searchCategorieInventory
+
+    private void JTextFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTextFieldSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTextFieldSearchActionPerformed
 
     private void comboBoxCategorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCategorieActionPerformed
 
     }//GEN-LAST:event_comboBoxCategorieActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    
+    
+    private void btnAddProduct(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProduct
+        
+        int idProduct = jYearChooserIdProduct.getValue();
+        int discount = jYearChooserDiscount.getValue();
+        int quantity = jYearChooserQuantity.getValue();
+    
+        // Verificar que los valores estén dentro de los rangos válidos
+        if (idProduct < 0 || idProduct >= AbarroMax.products.size()) {
+            JOptionPane.showMessageDialog(null, "The ID product is out of index", "Alert", JOptionPane.WARNING_MESSAGE);
+            
+        }else if (discount < 0 || discount > 100) {
+            JOptionPane.showMessageDialog(null, "Invalid discount", "Alert", JOptionPane.WARNING_MESSAGE);
 
+        } else if (quantity < 1 || quantity > AbarroMax.inventory.getInventory().get(idProduct) ) {
+            JOptionPane.showMessageDialog(null, "Exced the actual stock of the product", "Alert", JOptionPane.WARNING_MESSAGE);
+        } else {
+            ProductSale productSale = new ProductSale(idProduct, discount, quantity);
+            sale.addProduct(productSale);
+        }
+        printSaleTextArea();
+    
+    
+    }//GEN-LAST:event_btnAddProduct
+
+    private void btnDeleteProduct(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProduct
+       int idProduct = jYearChooserIdProduct.getValue();
+       
+       sale.removeProductById(idProduct);
+       printSaleTextArea();
+    }//GEN-LAST:event_btnDeleteProduct
+
+    private void btnSale(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSale
+               
+        float total = 0;
+        float discount = 0;
+        StringBuilder receipt = new StringBuilder("=== Receipt ===\n");
+
+        for (ProductSale ps : sale.getProductSales()) {
+            Product product = AbarroMax.products.get(ps.getProductId());  // Obtener el producto
+            int quantitySold = ps.getStock();
+            
+            float priceTemp = 0;
+                    
+            HashMap<Integer, Price> productPrices = prices.getPrices().get(ps.getProductId());
+
+            if (productPrices != null) {
+                for (Map.Entry<Integer, Price> priceEntry : productPrices.entrySet()) {
+                    int quantityPrice = priceEntry.getKey();
+                    if(quantitySold <= quantityPrice){
+                        Price priceObj = priceEntry.getValue();
+                        priceTemp = priceObj.getPrice();
+                    }
+                }
+            }
+            
+            
+            float price = priceTemp;
+            float subTotalPrice = price * quantitySold;
+            float totalPrice = subTotalPrice - subTotalPrice * ps.getOffer() / 100;
+            float discountAmount = subTotalPrice * ps.getOffer() / 100;
+
+            // Mostrar información del producto
+            receipt.append("Product: ").append(product.getName())
+                   .append(" | Quantity: ").append(quantitySold)
+                   .append(" | Price: $").append(price)
+                   .append(" | Subtotal: $").append(subTotalPrice)
+                   .append(" | Total: $").append(totalPrice).append("\n");
+
+            total += totalPrice;
+            discount += discountAmount;
+        }
+
+        receipt.append("\nSubtotal: $").append(total + discount)
+               .append("\nDiscount: -$").append(discount)
+               .append("\nTotal: $").append(total)
+               .append("\n\nThank you for your purchase!");
+
+        // Mostrar el recibo en un JOptionPane
+        JOptionPane.showMessageDialog(null, receipt.toString(), "Sale Receipt", JOptionPane.INFORMATION_MESSAGE);
+    
+        
+        sale = new Sale();
+    }//GEN-LAST:event_btnSale
+
+    private void printSaleTextArea(){
+        String text = new String();
+        text = sale.getProductSalesAsString();
+        
+        
+        saleTextArea.setText(text);
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -310,16 +546,26 @@ public class SaleUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField JTextFieldSearch;
     private javax.swing.JButton before;
+    private javax.swing.JButton btnAddProduct;
+    private javax.swing.JButton btnDeleteProduct;
+    private javax.swing.JButton btnSale;
     private javax.swing.JComboBox<String> comboBoxCategorie;
     private javax.swing.JButton home;
     private javax.swing.JTextArea inventaryTextArea;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private com.toedter.calendar.JYearChooser jYearChooserDiscount;
+    private com.toedter.calendar.JYearChooser jYearChooserIdProduct;
+    private com.toedter.calendar.JYearChooser jYearChooserQuantity;
+    private javax.swing.JTextArea saleTextArea;
     private javax.swing.JButton searchCategorieInventory;
     private javax.swing.JButton searchCategorieInventory6;
     // End of variables declaration//GEN-END:variables

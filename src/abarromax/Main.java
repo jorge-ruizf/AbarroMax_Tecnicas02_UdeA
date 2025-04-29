@@ -236,7 +236,10 @@ public class Main extends javax.swing.JDialog {
     }//GEN-LAST:event_goReport
 
     private void goCatalog(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goCatalog
-        // TODO add your handling code here:
+        this.dispose();
+        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
+        CatalogUI catalogUI = new CatalogUI(parent, true);
+        catalogUI.setVisible(true);
     }//GEN-LAST:event_goCatalog
 
     /**

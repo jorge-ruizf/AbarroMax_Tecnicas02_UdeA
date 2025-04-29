@@ -10,6 +10,14 @@ public class Sale {
     private int employeeId;
     private float discount; // descuento general en %
 
+    public Sale() {
+        this.productSales = new ArrayList<ProductSale>();
+        this.saleId = 0;
+        this.employeeId = 0;
+        this.discount = 0;
+    }
+    
+    
     public Sale(ArrayList<ProductSale> productSales, int saleId, int employeeId, float discount) {
         this.productSales = productSales;
         this.saleId = saleId;
@@ -51,7 +59,15 @@ public class Sale {
 
     public void addProduct(ProductSale ps) {
         productSales.add(ps);
-        System.out.println("Producto agregado a la venta.");
+    }
+    
+    public void removeProductById(int id) {
+        for (ProductSale ps : productSales) {
+            if (ps.getProductId() == id) {
+                productSales.remove(ps);
+                break;
+            }
+        }
     }
 
     public float calculateSubtotalCost() {
@@ -71,6 +87,19 @@ public class Sale {
         float discountAmount = subtotal * (discount / 100f);
         return subtotal - discountAmount;
     }
+    
+    public String getProductSalesAsString() {
+        StringBuilder sb = new StringBuilder();  // Usamos StringBuilder para una concatenación eficiente
+
+        for (ProductSale ps : productSales) {
+            sb.append("Product ID: ").append(ps.getProductId())  // Añade el ID del producto
+              .append(", Offer: ").append(ps.getOffer())          // Añade la oferta
+              .append(", Stock: ").append(ps.getStock())          // Añade el stock
+              .append("\n");                                      // Salto de línea al final de cada producto
+        }
+
+        return sb.toString();  // Retorna la cadena resultante
+    }
 
     public void printReceipt() {
         System.out.println("=== RECIBO DE VENTA ===");
@@ -79,7 +108,6 @@ public class Sale {
         System.out.println("Productos:");
         for (ProductSale ps : productSales) {
             System.out.println("- Producto ID: " + ps.getProductId() + 
-                               " | Oferta ID: " + ps.getOfferId() +
                                " | Cantidad: " + ps.getStock());
         }
         System.out.println("Subtotal: $" + calculateSubtotalCost());
