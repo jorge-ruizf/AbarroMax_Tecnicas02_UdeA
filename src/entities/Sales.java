@@ -20,6 +20,11 @@ public class Sales {
     public void setSales(ArrayList<Sale> sales) {
         this.sales = sales;
     }
+    
+    
+    public void addSale(Sale sale) {
+        this.sales.add(sale);
+    }
 
     // Imprime el recibo de la venta más reciente
     public void printLastesReceipt() {

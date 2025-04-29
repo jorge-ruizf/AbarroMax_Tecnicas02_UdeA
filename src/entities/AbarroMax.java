@@ -146,7 +146,7 @@ public class AbarroMax {
         offers = new Offers();
         
         
-        sales = new Sales();
+        sales = new Sales(new ArrayList<Sale>());
         returns = new Returns();
         
         

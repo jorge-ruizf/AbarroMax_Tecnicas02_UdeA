@@ -9,12 +9,22 @@ public class Sale {
     private int saleId;
     private int employeeId;
     private float discount; // descuento general en %
+    private float total;
 
     public Sale() {
         this.productSales = new ArrayList<ProductSale>();
         this.saleId = 0;
         this.employeeId = 0;
         this.discount = 0;
+        this.total = 0;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
     }
     
     

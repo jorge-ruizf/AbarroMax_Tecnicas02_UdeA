@@ -8,6 +8,7 @@ import entities.AbarroMax;
 import static entities.AbarroMax.categories;
 import static entities.AbarroMax.prices;
 import static entities.AbarroMax.products;
+import static entities.AbarroMax.sales;
 import entities.Price;
 import entities.Product;
 import entities.ProductSale;
@@ -487,11 +488,13 @@ public class SaleUI extends javax.swing.JDialog {
                .append("\nDiscount: -$").append(discount)
                .append("\nTotal: $").append(total)
                .append("\n\nThank you for your purchase!");
+        sale.setTotal(total);
+        
 
         // Mostrar el recibo en un JOptionPane
         JOptionPane.showMessageDialog(null, receipt.toString(), "Sale Receipt", JOptionPane.INFORMATION_MESSAGE);
     
-        
+        AbarroMax.sales.addSale(sale);
         sale = new Sale();
     }//GEN-LAST:event_btnSale
 
