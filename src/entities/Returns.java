@@ -3,7 +3,7 @@ package entities;
 
 import java.util.ArrayList;
 
-public class Returns {
+public class Returns implements Transaction{
     private ArrayList<Sale> returns;
 
     public Returns() {
@@ -44,5 +44,16 @@ public class Returns {
         } else {
             System.out.println("Índice de devolución no válido.");
         }
+    }
+    
+    @Override
+    public double calculateAmount() {
+        double totalAmount = 0;
+        if (returns != null) {
+            for (Sale sale : returns) {
+                totalAmount += sale.calculateTotalCost();
+            }
+        }
+        return totalAmount;
     }
 }

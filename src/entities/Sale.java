@@ -4,7 +4,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Sale {
+public class Sale implements Transaction {
     private ArrayList<ProductSale> productSales;
     private int saleId;
     private int employeeId;
@@ -129,5 +129,12 @@ public class Sale {
     Date getSaleDate() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    
+    @Override
+    public double calculateAmount() {
+        return (double) calculateTotalCost();
+    }
+    
 }
 
