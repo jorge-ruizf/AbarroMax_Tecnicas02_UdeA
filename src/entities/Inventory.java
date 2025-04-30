@@ -1,10 +1,12 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-
 public class Inventory {
+
     private HashMap<Integer, Integer> inventory;
 
     public Inventory(HashMap<Integer, Integer> inventory) {
@@ -21,24 +23,6 @@ public class Inventory {
 
     public void setInventory(HashMap<Integer, Integer> inventory) {
         this.inventory = inventory;
-    }
-
-    // Registrar un nuevo producto al inventario
-    public void registerProduct() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese el ID del producto: ");
-        int productId = scanner.nextInt();
-
-        if (inventory.containsKey(productId)) {
-            System.out.println("El producto ya está registrado.");
-            return;
-        }
-
-        System.out.print("Ingrese la cantidad inicial: ");
-        int quantity = scanner.nextInt();
-
-        inventory.put(productId, quantity);
-        System.out.println("Producto registrado con éxito.");
     }
 
     // Agregar cantidad a un producto existente
@@ -107,6 +91,25 @@ public class Inventory {
                 text = text.concat("ID: " + productId + " | Stock: " + inventory.get(productId) + "\n");
             }
         }
+        return text;
+    }
+
+    public String printReportStock(ArrayList<Product> products) {
+        String text = "";
+
+        for (Map.Entry<Integer, Integer> entry : this.inventory.entrySet()) {
+            Integer key = entry.getKey();
+            Integer value = entry.getValue();
+
+            Product product = products.get(key);
+
+            if (value < 5) {
+                text = text.concat("ID: " + key + " | Name: " + product.getName() + " is close to running out\n");
+            } else if (value > 30) {
+                text = text.concat("ID: " + key + " | Name: " + product.getName() + " is overstocked\n");
+            }
+        }
+
         return text;
     }
 }

@@ -19,7 +19,7 @@ public class MovementsUI extends javax.swing.JDialog {
     public MovementsUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         this.jPanelMovements.removeAll();
         this.jPanelMovements.add(new MovementsHistoryJPanelUI(), java.awt.BorderLayout.CENTER);
         this.jPanelMovements.revalidate();

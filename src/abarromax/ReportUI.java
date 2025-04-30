@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.SwingUtilities;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  *
  * @author jorge
@@ -141,51 +142,20 @@ public class ReportUI extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void printInventoryInScroll(){
-        String inventaryText = "";
-        
-        HashMap<Integer, Integer> inventory = AbarroMax.inventory.getInventory();
-        
-        
-        for(Map.Entry<Integer, Integer> entry : inventory.entrySet()){
-            Integer key = entry.getKey();
-            Integer value = entry.getValue();
+    private void printInventoryInScroll() {
+        String text = "";
 
-            // Mostrar
+        text = text.concat(AbarroMax.inventory.printReportStock(AbarroMax.products) + "\n");
 
-            Product product = products.get(key);
-            String categorie = categories.getCategories().get(product.getCategoryId());
-                        //inventaryText = inventaryText.concat("ID: " + key + " | Name: " + product.getName() + " | Categorie: " + categorie + " | Stock: " + value + " | Suplieer: " + product.getSupplier() + "\n");
+        text = text.concat(AbarroMax.sales.printReportForDayWeekMonth());
 
-            if(value < 5){
-                inventaryText = inventaryText.concat("ID: " + key + " | Name: " + product.getName() + " is close to running out\n");
-            } else if(value > 30){
-                inventaryText = inventaryText.concat("ID: " + key + " | Name: " + product.getName() + " is overstocked\n");
-            }
+        if (text.equals("\n")) {
+            text = text.concat("No report available!");
         }
-        if(AbarroMax.sales.getSales() != null){
-            float accumulated = 0;
-            inventaryText = inventaryText.concat("\n");
-            inventaryText = inventaryText.concat("===== Earnings in recent days =====\n");
-            ArrayList<Sale> sales = AbarroMax.sales.getSales();
-
-            int i = 0;
-            for(Sale sale : sales){
-                inventaryText = inventaryText.concat("Sale ID: " + i + " Total: " + sale.getTotal() + "\n");
-                accumulated += sale.getTotal();
-                i++;
-            }
-            inventaryText = inventaryText.concat("Total earnings: " + accumulated);
-        }
-        
-        if(inventaryText.equals("")){
-            inventaryText = inventaryText.concat("No report available!");
-        }
-        
-        this.inventaryTextArea.setText(inventaryText);
+        this.inventaryTextArea.setText(text);
     }
-    
-    
+
+
     private void goHome(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goHome
         this.dispose();
         Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);

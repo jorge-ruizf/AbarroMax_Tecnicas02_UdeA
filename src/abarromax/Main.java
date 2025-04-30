@@ -5,10 +5,8 @@
 package abarromax;
 
 //import javax.swing.ImageIcon;
-
 import java.awt.Frame;
 import javax.swing.SwingUtilities;
-
 
 /**
  *
@@ -20,11 +18,11 @@ public class Main extends javax.swing.JDialog {
      * Creates new form Start
      */
     private Main parent;
-    
+
     public Main(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         // ImageIcon icono = new ImageIcon(getClass().getResource("/images/icon-home.png"));
         // home.setIcon(icono);
     }
@@ -36,8 +34,6 @@ public class Main extends javax.swing.JDialog {
     public void setParent(Main parent) {
         this.parent = parent;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -238,7 +234,7 @@ public class Main extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0); 
+                        System.exit(0);
                     }
                 });
                 dialog.setVisible(true);

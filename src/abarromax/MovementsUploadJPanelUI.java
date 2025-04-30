@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package abarromax;
+
 import entities.AbarroMax;
 import static entities.AbarroMax.inventaryMovementHistory;
 import entities.InventoryMovement;
@@ -118,7 +119,7 @@ public class MovementsUploadJPanelUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void printjLabelActualTimeClock(){
+    private void printjLabelActualTimeClock() {
         Date now = new Date();
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -126,15 +127,14 @@ public class MovementsUploadJPanelUI extends javax.swing.JPanel {
 
         jLabelActualTimeClock.setText(formattedDate);
     }
-    
-    
-    private void PrintInventaryTextAreaUpload(){
+
+    private void PrintInventaryTextAreaUpload() {
         inventaryTextAreaUpload.setText(AbarroMax.inventory.printStockStatus());
     }
-    
+
     private void searchCategorieInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory
         HashMap<Integer, Integer> inventoryTemp = new HashMap<>();
-        
+
         String inventoryText = inventaryTextAreaUpload.getText();
 
         if (inventoryText == null || inventoryText.trim().isEmpty()) {
@@ -169,12 +169,11 @@ public class MovementsUploadJPanelUI extends javax.swing.JPanel {
 
         JOptionPane.showMessageDialog(null, "The invetory is reload", "Sucess", JOptionPane.QUESTION_MESSAGE);
         AbarroMax.inventory.setInventory(inventoryTemp);
-        
-        
+
         Date now = new Date();
-        
+
         AbarroMax.inventaryMovementHistory.addInventoryMovement(new InventoryMovement(new HashMap<>(inventoryTemp), now));
-        
+
     }//GEN-LAST:event_searchCategorieInventory
 
 

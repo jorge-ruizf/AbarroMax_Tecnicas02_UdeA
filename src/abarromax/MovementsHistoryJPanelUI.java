@@ -127,11 +127,11 @@ public class MovementsHistoryJPanelUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void printInventaryTextAreaMovements(){
+    private void printInventaryTextAreaMovements() {
         inventaryTextAreaMovements.setText(inventaryMovementHistory.report());
     }
-    
-    
+
+
     private void searchDateInventoryMovements(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchDateInventoryMovements
         inventaryTextAreaMovements.setText(inventaryMovementHistory.report(jDateChooserSince.getDate(), jDateChooserUntil.getDate()));
         //inventaryTextAreaMovements.setText(jDateChooserSince.getDate().toString() + "\n" + jDateChooserUntil.getDate().toString() + "\n" + inventaryMovementHistory.getInventoryMovementHistory().get(1).getDate().toString());

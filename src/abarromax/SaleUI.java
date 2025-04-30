@@ -8,7 +8,6 @@ import entities.AbarroMax;
 import static entities.AbarroMax.categories;
 import static entities.AbarroMax.prices;
 import static entities.AbarroMax.products;
-import static entities.AbarroMax.sales;
 import entities.Price;
 import entities.Product;
 import entities.ProductSale;
@@ -29,7 +28,7 @@ public class SaleUI extends javax.swing.JDialog {
      * Creates new form SaleUI
      */
     private Sale sale;
-    
+
     public SaleUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -341,45 +340,44 @@ public class SaleUI extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void printInventoryInScroll(){
+
+    private void printInventoryInScroll() {
         String inventaryText = "";
-        
+
         HashMap<Integer, Integer> inventory = AbarroMax.inventory.getInventory();
-        
+
         // Recorrer el HashMap
-        for(Map.Entry<Integer, Integer> entry : inventory.entrySet()){
+        for (Map.Entry<Integer, Integer> entry : inventory.entrySet()) {
             Integer key = entry.getKey();
             Integer value = entry.getValue();
-            
+
             // Mostrar
-            
             Product product = products.get(key);
             String categorie = categories.getCategories().get(product.getCategoryId());
-            
+
             int selectedCategorie = comboBoxCategorie.getSelectedIndex() - 1;
             String selectedName = JTextFieldSearch.getText();
-            
-            if(selectedCategorie == -1 || product.getCategoryId() == selectedCategorie){
-                if(selectedName.equals("") || product.getName().toLowerCase().contains(selectedName.toLowerCase() )){
+
+            if (selectedCategorie == -1 || product.getCategoryId() == selectedCategorie) {
+                if (selectedName.equals("") || product.getName().toLowerCase().contains(selectedName.toLowerCase())) {
                     inventaryText = inventaryText.concat("ID: " + key + " | Name: " + product.getName() + " | Categorie: " + categorie + " | Stock: " + value + " | Suplieer: " + product.getSupplier() + "\n");
                 }
             }
         }
-        
-        if(inventaryText.equals("")){
+
+        if (inventaryText.equals("")) {
             inventaryText = inventaryText.concat("The inventory is void!");
         }
-        
+
         this.inventaryTextArea.setText(inventaryText);
     }
-    
-    private void printComboBoxCategorie(){
-        for(int i = 0; i < AbarroMax.categories.getCategories().size(); i++){
+
+    private void printComboBoxCategorie() {
+        for (int i = 0; i < AbarroMax.categories.getCategories().size(); i++) {
             comboBoxCategorie.addItem(AbarroMax.categories.getCategories().get(i));
         }
     }
-    
+
     private void homegoHome(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homegoHome
         this.dispose();
         Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
@@ -410,41 +408,50 @@ public class SaleUI extends javax.swing.JDialog {
 
     }//GEN-LAST:event_comboBoxCategorieActionPerformed
 
-    
-    
+
     private void btnAddProduct(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProduct
-        
+
         int idProduct = jYearChooserIdProduct.getValue();
         int discount = jYearChooserDiscount.getValue();
         int quantity = jYearChooserQuantity.getValue();
-    
+
+        boolean isAdd = false;
+
         // Verificar que los valores estén dentro de los rangos válidos
-        if (idProduct < 0 || idProduct >= AbarroMax.products.size()) {
+        for (ProductSale ps : sale.getProductSales()) {
+            if (ps.getProductId() == idProduct) {
+                isAdd = true;
+            }
+        }
+        if (isAdd) {
+            JOptionPane.showMessageDialog(null, "The product has already been added", "Alert", JOptionPane.WARNING_MESSAGE);
+
+        } else if (idProduct < 0 || idProduct >= AbarroMax.products.size()) {
             JOptionPane.showMessageDialog(null, "The ID product is out of index", "Alert", JOptionPane.WARNING_MESSAGE);
-            
-        }else if (discount < 0 || discount > 100) {
+
+        } else if (discount < 0 || discount > 100) {
             JOptionPane.showMessageDialog(null, "Invalid discount", "Alert", JOptionPane.WARNING_MESSAGE);
 
-        } else if (quantity < 1 || quantity > AbarroMax.inventory.getInventory().get(idProduct) ) {
+        } else if (quantity < 1 || quantity > AbarroMax.inventory.getInventory().get(idProduct)) {
             JOptionPane.showMessageDialog(null, "Exced the actual stock of the product", "Alert", JOptionPane.WARNING_MESSAGE);
         } else {
             ProductSale productSale = new ProductSale(idProduct, discount, quantity);
             sale.addProduct(productSale);
         }
         printSaleTextArea();
-    
-    
+
+
     }//GEN-LAST:event_btnAddProduct
 
     private void btnDeleteProduct(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProduct
-       int idProduct = jYearChooserIdProduct.getValue();
-       
-       sale.removeProductById(idProduct);
-       printSaleTextArea();
+        int idProduct = jYearChooserIdProduct.getValue();
+
+        sale.removeProductById(idProduct);
+        printSaleTextArea();
     }//GEN-LAST:event_btnDeleteProduct
 
     private void btnSale(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSale
-               
+
         float total = 0;
         float discount = 0;
         StringBuilder receipt = new StringBuilder("=== Receipt ===\n");
@@ -452,22 +459,21 @@ public class SaleUI extends javax.swing.JDialog {
         for (ProductSale ps : sale.getProductSales()) {
             Product product = AbarroMax.products.get(ps.getProductId());  // Obtener el producto
             int quantitySold = ps.getStock();
-            
+
             float priceTemp = 0;
-                    
+
             HashMap<Integer, Price> productPrices = prices.getPrices().get(ps.getProductId());
 
             if (productPrices != null) {
                 for (Map.Entry<Integer, Price> priceEntry : productPrices.entrySet()) {
                     int quantityPrice = priceEntry.getKey();
-                    if(quantitySold <= quantityPrice){
+                    if (quantitySold <= quantityPrice) {
                         Price priceObj = priceEntry.getValue();
                         priceTemp = priceObj.getPrice();
                     }
                 }
             }
-            
-            
+
             float price = priceTemp;
             float subTotalPrice = price * quantitySold;
             float totalPrice = subTotalPrice - subTotalPrice * ps.getOffer() / 100;
@@ -475,37 +481,36 @@ public class SaleUI extends javax.swing.JDialog {
 
             // Mostrar información del producto
             receipt.append("Product: ").append(product.getName())
-                   .append(" | Quantity: ").append(quantitySold)
-                   .append(" | Price: $").append(price)
-                   .append(" | Subtotal: $").append(subTotalPrice)
-                   .append(" | Total: $").append(totalPrice).append("\n");
+                    .append(" | Quantity: ").append(quantitySold)
+                    .append(" | Price: $").append(price)
+                    .append(" | Subtotal: $").append(subTotalPrice)
+                    .append(" | Total: $").append(totalPrice).append("\n");
 
             total += totalPrice;
             discount += discountAmount;
         }
 
         receipt.append("\nSubtotal: $").append(total + discount)
-               .append("\nDiscount: -$").append(discount)
-               .append("\nTotal: $").append(total)
-               .append("\n\nThank you for your purchase!");
+                .append("\nDiscount: -$").append(discount)
+                .append("\nTotal: $").append(total)
+                .append("\n\nThank you for your purchase!");
         sale.setTotal(total);
-        
 
         // Mostrar el recibo en un JOptionPane
         JOptionPane.showMessageDialog(null, receipt.toString(), "Sale Receipt", JOptionPane.INFORMATION_MESSAGE);
-    
+
         AbarroMax.sales.addSale(sale);
         sale = new Sale();
     }//GEN-LAST:event_btnSale
 
-    private void printSaleTextArea(){
+    private void printSaleTextArea() {
         String text = new String();
         text = sale.getProductSalesAsString();
-        
-        
+
         saleTextArea.setText(text);
-        
+
     }
+
     /**
      * @param args the command line arguments
      */

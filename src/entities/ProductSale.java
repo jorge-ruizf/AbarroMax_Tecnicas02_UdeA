@@ -1,6 +1,7 @@
 package entities;
 
 public class ProductSale {
+
     private int productId;
     private int offer;
     private int stock;
@@ -42,16 +43,4 @@ public class ProductSale {
         return finalUnitPrice * stock;
     }
 
-    // Mostrar detalles de la venta del producto
-    public void showProductSaleDetails(float unitPrice, float discountPercent) {
-        System.out.println("Producto ID: " + productId);
-        System.out.println("Oferta: " + offer);
-        System.out.println("Cantidad Vendida: " + stock);
-        System.out.println("Precio Unitario: $" + unitPrice);
-        System.out.println("Descuento: " + discountPercent + "%");
-        System.out.println("Costo Total: $" + calculateProductCost(unitPrice, discountPercent));
-    }
 }
-
-
-    

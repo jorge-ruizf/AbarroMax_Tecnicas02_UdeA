@@ -3,36 +3,31 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Sale implements Transaction {
     private ArrayList<ProductSale> productSales;
     private int saleId;
-    private int employeeId;
-    private float discount; // descuento general en %
+    private String employeeName;
+    private float discount;
     private float total;
+    private Date date;
 
     public Sale() {
         this.productSales = new ArrayList<ProductSale>();
         this.saleId = 0;
-        this.employeeId = 0;
+        this.employeeName = "";
         this.discount = 0;
         this.total = 0;
+        this.date = new Date();
     }
 
-    public float getTotal() {
-        return total;
-    }
-
-    public void setTotal(float total) {
-        this.total = total;
-    }
-    
-    
-    public Sale(ArrayList<ProductSale> productSales, int saleId, int employeeId, float discount) {
+    public Sale(ArrayList<ProductSale> productSales, int saleId, String employeeName, float discount) {
         this.productSales = productSales;
         this.saleId = saleId;
-        this.employeeId = employeeId;
+        this.employeeName = employeeName;
         this.discount = discount;
+        this.date = new Date();
     }
 
     public ArrayList<ProductSale> getProductSales() {
@@ -51,16 +46,32 @@ public class Sale implements Transaction {
         this.saleId = saleId;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
     public float getDiscount() {
         return discount;
+    }
+    
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
     }
 
     public void setDiscount(float discount) {
@@ -99,22 +110,18 @@ public class Sale implements Transaction {
     }
     
     public String getProductSalesAsString() {
-        StringBuilder sb = new StringBuilder();  // Usamos StringBuilder para una concatenación eficiente
-
+        String text = "";
         for (ProductSale ps : productSales) {
-            sb.append("Product ID: ").append(ps.getProductId())  // Añade el ID del producto
-              .append(", Offer: ").append(ps.getOffer())          // Añade la oferta
-              .append(", Stock: ").append(ps.getStock())          // Añade el stock
-              .append("\n");                                      // Salto de línea al final de cada producto
+            text = text.concat("Product ID: " + ps.getProductId() + ", Offer: " + ps.getOffer() + ", Stock: " + ps.getStock() + "\n");
         }
-
-        return sb.toString();  // Retorna la cadena resultante
+        return text;
     }
 
     public void printReceipt() {
         System.out.println("=== RECIBO DE VENTA ===");
         System.out.println("Venta ID: " + saleId);
-        System.out.println("Empleado ID: " + employeeId);
+        System.out.println("Empleado: " + employeeName);
+        System.out.println("Fecha: " + employeeName);
         System.out.println("Productos:");
         for (ProductSale ps : productSales) {
             System.out.println("- Producto ID: " + ps.getProductId() + 
@@ -125,10 +132,7 @@ public class Sale implements Transaction {
         System.out.println("Total a pagar: $" + calculateTotalCost());
         System.out.println("=========================");
     }
-
-    Date getSaleDate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
     
     
     @Override

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InventoryMovement {
+
     private HashMap<Integer, Integer> inventory;
     private Date date;
 
@@ -48,4 +49,3 @@ public class InventoryMovement {
         return text;
     }
 }
-

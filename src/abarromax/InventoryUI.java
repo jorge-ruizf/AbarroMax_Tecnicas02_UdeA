@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.SwingUtilities;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  *
  * @author jorge
@@ -232,44 +233,43 @@ public class InventoryUI extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void printInventoryInScroll(){
+    private void printInventoryInScroll() {
         String inventaryText = "";
-        
+
         HashMap<Integer, Integer> inventory = AbarroMax.inventory.getInventory();
-        
+
         // Recorrer el HashMap
-        for(Map.Entry<Integer, Integer> entry : inventory.entrySet()){
+        for (Map.Entry<Integer, Integer> entry : inventory.entrySet()) {
             Integer key = entry.getKey();
             Integer value = entry.getValue();
-            
+
             // Mostrar
-            
             Product product = products.get(key);
             String categorie = categories.getCategories().get(product.getCategoryId());
-            
+
             int selectedCategorie = comboBoxCategorie.getSelectedIndex() - 1;
             String selectedName = JTextFieldSearch.getText();
-            
-            if(selectedCategorie == -1 || product.getCategoryId() == selectedCategorie){
-                if(selectedName.equals("") || product.getName().toLowerCase().contains(selectedName.toLowerCase() )){
+
+            if (selectedCategorie == -1 || product.getCategoryId() == selectedCategorie) {
+                if (selectedName.equals("") || product.getName().toLowerCase().contains(selectedName.toLowerCase())) {
                     inventaryText = inventaryText.concat("ID: " + key + " | Name: " + product.getName() + " | Categorie: " + categorie + " | Stock: " + value + " | Suplieer: " + product.getSupplier() + "\n");
                 }
             }
         }
-        
-        if(inventaryText.equals("")){
+
+        if (inventaryText.equals("")) {
             inventaryText = inventaryText.concat("The inventory is void!");
         }
-        
+
         this.inventaryTextArea.setText(inventaryText);
     }
-    
-    private void printComboBoxCategorie(){
-        for(int i = 0; i < AbarroMax.categories.getCategories().size(); i++){
+
+    private void printComboBoxCategorie() {
+        for (int i = 0; i < AbarroMax.categories.getCategories().size(); i++) {
             comboBoxCategorie.addItem(AbarroMax.categories.getCategories().get(i));
         }
     }
-    
+
     private void searchCategorieInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory
         this.printInventoryInScroll();
     }//GEN-LAST:event_searchCategorieInventory
@@ -289,7 +289,7 @@ public class InventoryUI extends javax.swing.JDialog {
     }//GEN-LAST:event_goBefore
 
     private void comboBoxCategorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCategorieActionPerformed
-        
+
     }//GEN-LAST:event_comboBoxCategorieActionPerformed
 
     private void goMovements(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goMovements

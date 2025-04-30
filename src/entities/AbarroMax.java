@@ -1,23 +1,26 @@
 package entities;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Date;
 import java.util.Calendar;
 
 public class AbarroMax {
-    
+
     public static Inventory inventory;
     public static ArrayList<Product> products;
-    public static Categories categories ;
+    public static Categories categories;
     public static Prices prices;
-    public static Offers offers;
     public static InventoryMovementHistory inventaryMovementHistory;
     public static Sales sales;
     public static Returns returns;
-    
+
     static {
-        
+
         categories = new Categories();
         ArrayList<String> categoriesStrings = new ArrayList();
         categoriesStrings.add("Medicine");
@@ -26,8 +29,7 @@ public class AbarroMax {
         categoriesStrings.add("Technologic");
         categoriesStrings.add("Home");
         categories.setCategories(categoriesStrings);
-        
-        
+
         products = new ArrayList<Product>();
         products.add(new Product(0, "Paracetamol", 0, "Colsubsidios"));
         products.add(new Product(1, "Papas 105g", 2, "Margarita"));
@@ -45,7 +47,6 @@ public class AbarroMax {
         products.add(new Product(13, "Chaqueta impermeable", 1, "North Face"));
         products.add(new Product(14, "Aspiradora robot", 4, "iRobot"));
 
-               
         // Inicializamos Prices
         prices = new Prices();
 
@@ -142,60 +143,107 @@ public class AbarroMax {
         priceMap.put(2, new Price(2, 1250.00f));  // Mayoreo de 2 unidades a 1250.00
         priceMap.put(5, new Price(5, 1200.00f));  // Mayoreo de 5 unidades a 1200.00
         prices.getPrices().put(14, priceMap);  // Producto 14: Aspiradora robot
-        
-        offers = new Offers();
-        
-        
+
+        //Venta de productos Individuales
+        ProductSale ps1 = new ProductSale(1, 10, 5);
+        ProductSale ps2 = new ProductSale(2, 0, 3);
+        ProductSale ps3 = new ProductSale(3, 5, 2);
+        ProductSale ps4 = new ProductSale(4, 20, 1);
+        ProductSale ps5 = new ProductSale(5, 15, 4);
+        ProductSale ps6 = new ProductSale(6, 0, 6);
+        ProductSale ps7 = new ProductSale(7, 25, 2);
+        ProductSale ps8 = new ProductSale(8, 5, 7);
+        ProductSale ps9 = new ProductSale(9, 30, 1);
+        ProductSale ps10 = new ProductSale(10, 10, 3);
+        ProductSale ps11 = new ProductSale(11, 0, 8);
+        ProductSale ps12 = new ProductSale(12, 20, 3);
+        ProductSale ps13 = new ProductSale(13, 0, 2);
+        ProductSale ps14 = new ProductSale(14, 20, 5);
+
+        //Ventas
         sales = new Sales(new ArrayList<Sale>());
-        returns = new Returns();
-        
-        
+
+        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps1, ps3)), 1, "Carlos Gómez", 0.10f));
+        sales.getSales().get(0).setDate(Date.from(LocalDate.of(2025, 4, 2).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps10, ps8, ps2)), 2, "Luisa Martínez", 0.00f));
+        sales.getSales().get(1).setDate(Date.from(LocalDate.of(2025, 4, 4).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps3, ps9)), 3, "Andrea Torres", 0.05f));
+        sales.getSales().get(2).setDate(Date.from(LocalDate.of(2025, 4, 6).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps4, ps2)), 4, "Miguel Ángel", 0.15f));
+        sales.getSales().get(3).setDate(Date.from(LocalDate.of(2025, 4, 8).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps5, ps7)), 5, "Valeria Ruiz", 0.00f));
+        sales.getSales().get(4).setDate(Date.from(LocalDate.of(2025, 4, 11).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps6, ps10)), 6, "Jorge Méndez", 0.20f));
+        sales.getSales().get(5).setDate(Date.from(LocalDate.of(2025, 4, 14).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps7, ps9, ps11)), 7, "Natalia Jiménez", 0.10f));
+        sales.getSales().get(6).setDate(Date.from(LocalDate.of(2025, 4, 17).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps8, ps13, ps12, ps3)), 8, "Felipe Salazar", 0.00f));
+        sales.getSales().get(7).setDate(Date.from(LocalDate.of(2025, 4, 21).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps9, ps5)), 9, "Daniela Rivera", 0.05f));
+        sales.getSales().get(8).setDate(Date.from(LocalDate.of(2025, 4, 25).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps10, ps14)), 10, "Laura Castro", 0.10f));
+        sales.getSales().get(9).setDate(Date.from(LocalDate.of(2025, 4, 28).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        returns = new Returns(new ArrayList<Sale>());
+        returns.addReturn(sales.removeSaleById(9));
+
         // Inventarios
-                     
         InventoryMovementHistory inventaryMovementHistoryTemp = new InventoryMovementHistory();
-        
-        
+
         Calendar calendar = Calendar.getInstance();
-        
+
         HashMap<Integer, Integer> inventoryTemp = new HashMap<>();
-        inventoryTemp.put(0,10);
-        inventoryTemp.put(1,20);
-        inventoryTemp.put(2,6);
-        
+        inventoryTemp.put(0, 10);
+        inventoryTemp.put(1, 20);
+        inventoryTemp.put(2, 6);
+
         calendar.set(2025, Calendar.APRIL, 22, 15, 15, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         Date base_date = calendar.getTime();
-        
+
         inventaryMovementHistoryTemp.addInventoryMovement(new InventoryMovement(new HashMap<>(inventoryTemp), base_date));
-        
-        
-        inventoryTemp.put(3,12);
-        inventoryTemp.put(4,8);
-        inventoryTemp.put(5,35);
-        
+
+        inventoryTemp.put(3, 12);
+        inventoryTemp.put(4, 8);
+        inventoryTemp.put(5, 35);
+
         calendar.set(2025, Calendar.APRIL, 25, 9, 50, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         base_date = calendar.getTime();
-        
+
         inventaryMovementHistoryTemp.addInventoryMovement(new InventoryMovement(new HashMap<>(inventoryTemp), base_date));
-        
-        
-        inventoryTemp.put(6,10);
-        inventoryTemp.put(7,20);
-        inventoryTemp.put(8,5);
-        
+
+        inventoryTemp.put(6, 10);
+        inventoryTemp.put(7, 20);
+        inventoryTemp.put(8, 5);
+        inventoryTemp.put(9, 5);
+        inventoryTemp.put(10, 40);
+        inventoryTemp.put(11, 20);
+        inventoryTemp.put(12, 1);
+        inventoryTemp.put(13, 3);
+        inventoryTemp.put(14, 2);
+
         calendar.set(2025, Calendar.APRIL, 28, 16, 30, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         base_date = calendar.getTime();
-        
+
         inventaryMovementHistoryTemp.addInventoryMovement(new InventoryMovement(new HashMap<>(inventoryTemp), base_date));
-        
+
         inventory = new Inventory(inventoryTemp);
         inventaryMovementHistory = new InventoryMovementHistory(inventaryMovementHistoryTemp.getInventoryMovementHistory());
     }
-    
+
     public static void main() {
-               
+
     }
-    
+
 }

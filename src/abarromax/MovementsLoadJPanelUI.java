@@ -113,17 +113,16 @@ public class MovementsLoadJPanelUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void printInventaryTextAreaMovements(){
+    private void printInventaryTextAreaMovements() {
         inventaryTextAreaMovements.setText(inventaryMovementHistory.report());
     }
-    
-    
-    private void printJYearChooserIdInventory(){
+
+    private void printJYearChooserIdInventory() {
         jYearChooserIdInventory.setMaximum(AbarroMax.inventaryMovementHistory.getInventoryMovementHistory().size() - 1);
         jYearChooserIdInventory.setMinimum(0);
     }
-    
-    
+
+
     private void LoadIdInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadIdInventory
         AbarroMax.inventory.setInventory(AbarroMax.inventaryMovementHistory.getInventoryMovementHistory().get(jYearChooserIdInventory.getValue()).getInventory());
     }//GEN-LAST:event_LoadIdInventory

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class InventoryMovementHistory {
+
     private ArrayList<InventoryMovement> inventoryMovementHistory;
 
     public InventoryMovementHistory() {
@@ -32,11 +33,11 @@ public class InventoryMovementHistory {
     public String report(Date since, Date until) {
         String text = new String();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        
+
         text = text.concat("----- Inventory Movement Reports -----\n");
         int i = 0, nMovements = 0;
         for (InventoryMovement movement : inventoryMovementHistory) {
-            if(movement.getDate().after(since) && movement.getDate().before(until)){
+            if (movement.getDate().after(since) && movement.getDate().before(until)) {
                 text = text.concat("ID: " + i + "\n");
                 text = text.concat(movement.printStatus());
                 text = text.concat("-------------------------------------------\n");
@@ -44,14 +45,16 @@ public class InventoryMovementHistory {
             }
             i++;
         }
-        if(nMovements == 0) text = text.concat("No movements register");
-        
+        if (nMovements == 0) {
+            text = text.concat("No movements register");
+        }
+
         return text;
     }
-    
+
     public String report() {
         String text = new String();
-        
+
         text = text.concat("----- Inventory Movement Reports -----\n");
         int i = 0;
         for (InventoryMovement movement : inventoryMovementHistory) {
@@ -60,8 +63,10 @@ public class InventoryMovementHistory {
             text = text.concat("-------------------------------------------\n");
             i++;
         }
-        if(i == 0) text = text.concat("No movements register");
-        
+        if (i == 0) {
+            text = text.concat("No movements register");
+        }
+
         return text;
     }
 }

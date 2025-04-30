@@ -1,9 +1,11 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Sales {
+
     private ArrayList<Sale> sales;
 
     public Sales() {
@@ -20,8 +22,7 @@ public class Sales {
     public void setSales(ArrayList<Sale> sales) {
         this.sales = sales;
     }
-    
-    
+
     public void addSale(Sale sale) {
         this.sales.add(sale);
     }
@@ -46,47 +47,71 @@ public class Sales {
         }
     }
 
-    // Devolver toda la venta (lógica de devolución de una venta completa)
-    public void returnSale(int index) {
-        if (index >= 0 && index < sales.size()) {
-            sales.remove(index);
-            System.out.println("Venta devuelta correctamente.");
-        } else {
-            System.out.println("Índice de venta no válido para devolución.");
-        }
-    }
+    public float getEarningsForNumberOfDays(int days) {
+        float total = 0;
 
-    // Devolver un solo producto dentro de una venta
-    public void returnOneSale(int productId) {
-        boolean productFound = false;
+        if (sales == null) {
+            return total;
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -days);
+        Date limitDate = cal.getTime();
+
         for (Sale sale : sales) {
-            for (ProductSale productSale : sale.getProductSales()) {
-                if (productSale.getProductId() == productId) {
-                    sale.getProductSales().remove(productSale);
-                    System.out.println("Producto con ID " + productId + " devuelto.");
-                    productFound = true;
-                    break;
-                }
+            if (!sale.getDate().before(limitDate)) {
+                total += sale.getTotal();
             }
-            if (productFound) break;
         }
-        if (!productFound) {
-            System.out.println("Producto no encontrado en ninguna venta.");
-        }
+
+        return total;
     }
 
-    // Imprime el tiempo transcurrido entre la primera y última venta registrada
-    public void printTimelapse() {
-        if (!sales.isEmpty()) {
-            Sale firstSale = sales.get(0);
-            Sale lastSale = sales.get(sales.size() - 1);
-            Date firstDate = firstSale.getSaleDate(); // Asumimos que la clase Sale tiene una fecha
-            Date lastDate = lastSale.getSaleDate();
-            long timeDifference = lastDate.getTime() - firstDate.getTime();
-            long daysDifference = timeDifference / (1000 * 60 * 60 * 24); // Convertimos a días
-            System.out.println("Tiempo transcurrido entre la primera y última venta: " + daysDifference + " días.");
-        } else {
-            System.out.println("No hay ventas registradas.");
+    public int getSalesCountForNumberOfDays(int days) {
+        int count = 0;
+
+        if (sales == null) {
+            return count;
         }
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -days);
+        Date limitDate = cal.getTime();
+
+        for (Sale sale : sales) {
+            if (!sale.getDate().before(limitDate)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public String printReportForDayWeekMonth() {
+        String text = "";
+
+        float earningsForProductsDay = getEarningsForNumberOfDays(1) / getSalesCountForNumberOfDays(1);
+        float earningsForProductsWeek = getEarningsForNumberOfDays(7) / getSalesCountForNumberOfDays(7);
+        float earningsForProductsMonth = getEarningsForNumberOfDays(30) / getSalesCountForNumberOfDays(30);
+        float mediumProductEarnings = (earningsForProductsDay + earningsForProductsWeek + earningsForProductsMonth) / 3;
+
+        float percentEarningsForProductsDay = earningsForProductsDay * 100 / mediumProductEarnings;
+        float percentEarningsForProductsWeek = earningsForProductsWeek * 100 / mediumProductEarnings;
+        float percentEarningsForProductsMonth = earningsForProductsMonth * 100 / mediumProductEarnings;
+
+        text = text.concat("Earnings in this day: " + earningsForProductsDay + "\n");
+        text = text.concat("Earnings in this week: " + earningsForProductsWeek + "\n");
+        text = text.concat("Earnings in this month: " + earningsForProductsMonth + "\n");
+        text = text.concat("Medium earnings: " + mediumProductEarnings + "\n\n");
+        text = text.concat("=========== Percent earnings =========\n");
+        text = text.concat("Day: " + String.format("%.0f", percentEarningsForProductsDay) + "%\n");
+        text = text.concat("Week: " + String.format("%.0f", percentEarningsForProductsWeek) + "%\n");
+        text = text.concat("Month: " + String.format("%.0f", percentEarningsForProductsMonth) + "%\n");
+
+        return text;
+    }
+
+    public Sale removeSaleById(int index) {
+        return sales.remove(index);
     }
 }
