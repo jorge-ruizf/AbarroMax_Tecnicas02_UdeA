@@ -236,11 +236,8 @@ public class InventoryUI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     private void printInventoryInScroll() {
         String inventaryText = "";
-
         Inventory inventory = AbarroMax.inventory;
-        
         inventaryText = inventaryText.concat(inventory.printInventoryForCategorie(comboBoxCategorie.getSelectedIndex() - 1, JTextFieldSearch.getText().trim(), AbarroMax.products, AbarroMax.categories));
-
 
         this.inventaryTextArea.setText(inventaryText);
     }

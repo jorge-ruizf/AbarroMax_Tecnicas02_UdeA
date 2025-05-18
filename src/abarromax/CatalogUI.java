@@ -216,54 +216,8 @@ public class CatalogUI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     private void printInventoryInScroll() {
         String inventaryText = "";
-
-        HashMap<Integer, Integer> inventory = AbarroMax.inventory.getInventory();
-
-        // Recorrer el HashMap
-        for (Map.Entry<Integer, Integer> entry : inventory.entrySet()) {
-            Integer key = entry.getKey();
-            Integer value = entry.getValue();
-
-            // Mostrar
-            Product product = products.get(key);
-            String categorie = categories.getCategories().get(product.getCategoryId());
-
-            int selectedCategorie = comboBoxCategorie.getSelectedIndex() - 1;
-            String selectedName = JTextFieldSearch.getText();
-
-            if (selectedCategorie == -1 || product.getCategoryId() == selectedCategorie) {
-                if (selectedName.equals("") || product.getName().toLowerCase().contains(selectedName.toLowerCase())) {
-
-                    // Construir pricesTemps
-                    StringBuilder pricesTemps = new StringBuilder();
-                    HashMap<Integer, Price> productPrices = prices.getPrices().get(key);
-
-                    if (productPrices != null) {
-                        for (Map.Entry<Integer, Price> priceEntry : productPrices.entrySet()) {
-                            int minQuantity = priceEntry.getKey();
-                            Price priceObj = priceEntry.getValue();
-
-                            pricesTemps.append(minQuantity)
-                                    .append(" x $")
-                                    .append(String.format("%.2f", priceObj.getPrice()))
-                                    .append(", ");
-                        }
-                        // Quitar la última coma y espacio
-                        if (pricesTemps.length() > 2) {
-                            pricesTemps.setLength(pricesTemps.length() - 2);
-                        }
-                    } else {
-                        pricesTemps.append("No prices available");
-                    }
-
-                    inventaryText = inventaryText.concat("ID: " + key + " | Name: " + product.getName() + " | Categorie: " + categorie + " | Stock: " + value + " | Suplieer: " + product.getSupplier() + " | Prices: " + pricesTemps + "\n");
-                }
-            }
-        }
-
-        if (inventaryText.equals("")) {
-            inventaryText = inventaryText.concat("The Catalog is void!");
-        }
+        
+        inventaryText = inventaryText.concat(AbarroMax.inventory.printInventoryCatalog(comboBoxCategorie.getSelectedIndex() - 1, JTextFieldSearch.getText().trim(), AbarroMax.products, AbarroMax.categories, AbarroMax.prices));
 
         this.inventaryTextArea.setText(inventaryText);
     }
