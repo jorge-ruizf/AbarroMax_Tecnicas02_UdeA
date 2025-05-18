@@ -1,9 +1,13 @@
 package entities;
 
 
+import static entities.AbarroMax.prices;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
 
 public class Sale implements Transaction {
     private ArrayList<ProductSale> productSales;
@@ -117,20 +121,46 @@ public class Sale implements Transaction {
         return text;
     }
 
-    public void printReceipt() {
-        System.out.println("=== RECIBO DE VENTA ===");
-        System.out.println("Venta ID: " + saleId);
-        System.out.println("Empleado: " + employeeName);
-        System.out.println("Fecha: " + employeeName);
-        System.out.println("Productos:");
-        for (ProductSale ps : productSales) {
-            System.out.println("- Producto ID: " + ps.getProductId() + 
-                               " | Cantidad: " + ps.getStock());
+    public String printReceipt() {
+        float total = 0;
+        float discount = 0;
+        String receipt = "=== Receipt ===\n";
+
+        for (ProductSale ps : this.getProductSales()) {
+            Product product = AbarroMax.products.get(ps.getProductId());  // Obtener el producto
+            int quantitySold = ps.getStock();
+
+            float priceTemp = 0;
+
+            HashMap<Integer, Price> productPrices = prices.getPrices().get(ps.getProductId());
+
+            if (productPrices != null) {
+                for (Map.Entry<Integer, Price> priceEntry : productPrices.entrySet()) {
+                    int quantityPrice = priceEntry.getKey();
+                    if (quantitySold <= quantityPrice) {
+                        Price priceObj = priceEntry.getValue();
+                        priceTemp = priceObj.getPrice();
+                    }
+                }
+            }
+
+            float price = priceTemp;
+            float subTotalPrice = price * quantitySold;
+            float totalPrice = subTotalPrice - subTotalPrice * ps.getOffer() / 100;
+            float discountAmount = subTotalPrice * ps.getOffer() / 100;
+
+            // Mostrar información del producto
+            receipt = receipt.concat("Product: " + product.getName() + " | Quantity: " + quantitySold + " | Price: $" + price + " | Subtotal: $" + subTotalPrice + " | Total: $" + totalPrice + "\n");
+
+            total += totalPrice;
+            discount += discountAmount;
         }
-        System.out.println("Subtotal: $" + calculateSubtotalCost());
-        System.out.println("Descuento aplicado: " + discount + "%");
-        System.out.println("Total a pagar: $" + calculateTotalCost());
-        System.out.println("=========================");
+
+        receipt = receipt.concat("\nSubtotal: $" + Float.toString(total + discount) + "\nDiscount: -$" + discount + "\nTotal: $" + total + "\n\nThank you for your purchase!");
+        this.setTotal(total);
+
+
+        return receipt;
     }
     
     

@@ -146,12 +146,12 @@ public class ReportUI extends javax.swing.JDialog {
         String text = "";
 
         text = text.concat(AbarroMax.inventory.printReportStock(AbarroMax.products) + "\n");
-
         text = text.concat(AbarroMax.sales.printReportForDayWeekMonth());
 
         if (text.equals("\n")) {
             text = text.concat("No report available!");
         }
+        
         this.inventaryTextArea.setText(text);
     }
 
