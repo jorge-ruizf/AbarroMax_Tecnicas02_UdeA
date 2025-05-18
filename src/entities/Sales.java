@@ -9,6 +9,7 @@ public class Sales {
     private ArrayList<Sale> sales;
 
     public Sales() {
+        this.sales = new ArrayList<>();
     }
 
     public Sales(ArrayList<Sale> sales) {
@@ -89,10 +90,17 @@ public class Sales {
 
     public String printReportForDayWeekMonth() {
         String text = "";
-
-        float earningsForProductsDay = getEarningsForNumberOfDays(1) / getSalesCountForNumberOfDays(1);
-        float earningsForProductsWeek = getEarningsForNumberOfDays(7) / getSalesCountForNumberOfDays(7);
-        float earningsForProductsMonth = getEarningsForNumberOfDays(30) / getSalesCountForNumberOfDays(30);
+        float earningsForProductsDay = 0, earningsForProductsWeek = 0, earningsForProductsMonth = 0;
+        
+        if(getSalesCountForNumberOfDays(1) == 0){
+            earningsForProductsDay = getEarningsForNumberOfDays(1) / getSalesCountForNumberOfDays(1);
+        }
+        if(getSalesCountForNumberOfDays(7) == 0){
+            earningsForProductsWeek = getEarningsForNumberOfDays(7) / getSalesCountForNumberOfDays(7);
+        }
+        if(getSalesCountForNumberOfDays(30) == 0){
+            earningsForProductsMonth = getEarningsForNumberOfDays(30) / getSalesCountForNumberOfDays(30);
+        }
         float mediumProductEarnings = (earningsForProductsDay + earningsForProductsWeek + earningsForProductsMonth) / 3;
 
         float percentEarningsForProductsDay = earningsForProductsDay * 100 / mediumProductEarnings;

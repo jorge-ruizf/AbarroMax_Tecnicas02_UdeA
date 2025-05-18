@@ -9,6 +9,7 @@ import entities.AbarroMax;
 import static entities.AbarroMax.categories;
 import static entities.AbarroMax.inventory;
 import static entities.AbarroMax.products;
+import entities.Inventory;
 import entities.Product;
 import java.awt.Frame;
 import java.util.ArrayList;
@@ -236,30 +237,10 @@ public class InventoryUI extends javax.swing.JDialog {
     private void printInventoryInScroll() {
         String inventaryText = "";
 
-        HashMap<Integer, Integer> inventory = AbarroMax.inventory.getInventory();
+        Inventory inventory = AbarroMax.inventory;
+        
+        inventaryText = inventaryText.concat(inventory.printInventoryForCategorie(comboBoxCategorie.getSelectedIndex() - 1, JTextFieldSearch.getText().trim(), AbarroMax.products, AbarroMax.categories));
 
-        // Recorrer el HashMap
-        for (Map.Entry<Integer, Integer> entry : inventory.entrySet()) {
-            Integer key = entry.getKey();
-            Integer value = entry.getValue();
-
-            // Mostrar
-            Product product = products.get(key);
-            String categorie = categories.getCategories().get(product.getCategoryId());
-
-            int selectedCategorie = comboBoxCategorie.getSelectedIndex() - 1;
-            String selectedName = JTextFieldSearch.getText();
-
-            if (selectedCategorie == -1 || product.getCategoryId() == selectedCategorie) {
-                if (selectedName.equals("") || product.getName().toLowerCase().contains(selectedName.toLowerCase())) {
-                    inventaryText = inventaryText.concat("ID: " + key + " | Name: " + product.getName() + " | Categorie: " + categorie + " | Stock: " + value + " | Suplieer: " + product.getSupplier() + "\n");
-                }
-            }
-        }
-
-        if (inventaryText.equals("")) {
-            inventaryText = inventaryText.concat("The inventory is void!");
-        }
 
         this.inventaryTextArea.setText(inventaryText);
     }
