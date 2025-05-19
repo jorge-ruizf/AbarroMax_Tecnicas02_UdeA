@@ -134,7 +134,6 @@ public class MovementsUploadJPanelUI extends javax.swing.JPanel {
 
     private void searchCategorieInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory
         HashMap<Integer, Integer> inventoryTemp = new HashMap<>();
-
         String inventoryText = inventaryTextAreaUpload.getText();
 
         if (inventoryText == null || inventoryText.trim().isEmpty()) {
@@ -167,7 +166,8 @@ public class MovementsUploadJPanelUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Process detect a error", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        JOptionPane.showMessageDialog(null, "The invetory is reload", "Sucess", JOptionPane.QUESTION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "The inventory is reload", "Sucess", JOptionPane.QUESTION_MESSAGE);
+        
         AbarroMax.inventory.setInventory(inventoryTemp);
 
         Date now = new Date();
