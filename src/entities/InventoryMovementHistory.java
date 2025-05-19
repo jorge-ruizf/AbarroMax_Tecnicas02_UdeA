@@ -1,10 +1,16 @@
 package entities;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 
 public class InventoryMovementHistory {
+
     private ArrayList<InventoryMovement> inventoryMovementHistory;
+
+    public InventoryMovementHistory() {
+        this.inventoryMovementHistory = new ArrayList<>();
+    }
 
     public InventoryMovementHistory(ArrayList<InventoryMovement> inventoryMovementHistory) {
         this.inventoryMovementHistory = inventoryMovementHistory;
@@ -24,19 +30,43 @@ public class InventoryMovementHistory {
     }
 
     // Generar un reporte de todos los movimientos
-    public void report() {
+    public String report(Date since, Date until) {
+        String text = new String();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        
-        System.out.println("----- Reporte de Movimientos de Inventario -----");
-        if (inventoryMovementHistory.isEmpty()) {
-            System.out.println("No hay movimientos registrados.");
-            return;
+
+        text = text.concat("----- Inventory Movement Reports -----\n");
+        int i = 0, nMovements = 0;
+        for (InventoryMovement movement : inventoryMovementHistory) {
+            if (movement.getDate().after(since) && movement.getDate().before(until)) {
+                text = text.concat("ID: " + i + "\n");
+                text = text.concat(movement.printStatus());
+                text = text.concat("-------------------------------------------\n");
+                nMovements++;
+            }
+            i++;
+        }
+        if (nMovements == 0) {
+            text = text.concat("No movements register");
         }
 
+        return text;
+    }
+
+    public String report() {
+        String text = new String();
+
+        text = text.concat("----- Inventory Movement Reports -----\n");
+        int i = 0;
         for (InventoryMovement movement : inventoryMovementHistory) {
-            System.out.println("Fecha del movimiento: " + formatter.format(movement.getDate()));
-            movement.printStatus();
-            System.out.println("-------------------------------------------");
+            text = text.concat("ID: " + i + "\n");
+            text = text.concat(movement.printStatus());
+            text = text.concat("-------------------------------------------\n");
+            i++;
         }
+        if (i == 0) {
+            text = text.concat("No movements register");
+        }
+
+        return text;
     }
 }

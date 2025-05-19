@@ -4,6 +4,8 @@
  */
 package abarromax;
 
+import static entities.AbarroMax.inventaryMovementHistory;
+
 /**
  *
  * @author jorge
@@ -15,6 +17,7 @@ public class MovementsHistoryJPanelUI extends javax.swing.JPanel {
      */
     public MovementsHistoryJPanelUI() {
         initComponents();
+        printInventaryTextAreaMovements();
     }
 
     /**
@@ -27,33 +30,34 @@ public class MovementsHistoryJPanelUI extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel8 = new javax.swing.JPanel();
-        jDateChooserSince12 = new com.toedter.calendar.JDateChooser();
+        jDateChooserSince = new com.toedter.calendar.JDateChooser();
         jLabel14 = new javax.swing.JLabel();
-        jDateChooserSince13 = new com.toedter.calendar.JDateChooser();
+        jDateChooserUntil = new com.toedter.calendar.JDateChooser();
         jLabel15 = new javax.swing.JLabel();
-        searchCategorieInventory6 = new javax.swing.JButton();
-        inventaryTextArea7 = new javax.swing.JTextArea();
+        searchDateInventoryMovements = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        inventaryTextAreaMovements = new javax.swing.JTextArea();
 
-        jDateChooserSince12.setFont(new java.awt.Font("Nexa Extra Light", 0, 12)); // NOI18N
+        jDateChooserSince.setFont(new java.awt.Font("Nexa Extra Light", 0, 12)); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
         jLabel14.setText("Since:");
 
-        jDateChooserSince13.setFont(new java.awt.Font("Nexa Extra Light", 0, 12)); // NOI18N
+        jDateChooserUntil.setFont(new java.awt.Font("Nexa Extra Light", 0, 12)); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
         jLabel15.setText("Until:");
 
-        searchCategorieInventory6.setBackground(new java.awt.Color(0, 153, 153));
-        searchCategorieInventory6.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
-        searchCategorieInventory6.setForeground(new java.awt.Color(255, 255, 255));
-        searchCategorieInventory6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifying-glass-solid.png"))); // NOI18N
-        searchCategorieInventory6.setText("  Search");
-        searchCategorieInventory6.setActionCommand("searchCategorieInventory");
-        searchCategorieInventory6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        searchCategorieInventory6.addActionListener(new java.awt.event.ActionListener() {
+        searchDateInventoryMovements.setBackground(new java.awt.Color(0, 153, 153));
+        searchDateInventoryMovements.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
+        searchDateInventoryMovements.setForeground(new java.awt.Color(255, 255, 255));
+        searchDateInventoryMovements.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifying-glass-solid.png"))); // NOI18N
+        searchDateInventoryMovements.setText("  Search");
+        searchDateInventoryMovements.setActionCommand("searchCategorieInventory");
+        searchDateInventoryMovements.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        searchDateInventoryMovements.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchCategorieInventory6(evt);
+                searchDateInventoryMovements(evt);
             }
         });
 
@@ -64,15 +68,15 @@ public class MovementsHistoryJPanelUI extends javax.swing.JPanel {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchCategorieInventory6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchDateInventoryMovements, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
-                            .addComponent(jDateChooserSince12, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateChooserSince, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
-                            .addComponent(jDateChooserSince13, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateChooserUntil, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -84,29 +88,30 @@ public class MovementsHistoryJPanelUI extends javax.swing.JPanel {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooserSince12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDateChooserSince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooserSince13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jDateChooserUntil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(searchCategorieInventory6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchDateInventoryMovements, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        inventaryTextArea7.setEditable(false);
-        inventaryTextArea7.setColumns(20);
-        inventaryTextArea7.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        inventaryTextArea7.setRows(5);
-        inventaryTextArea7.setText("El inventario esta vacio");
+        inventaryTextAreaMovements.setEditable(false);
+        inventaryTextAreaMovements.setColumns(20);
+        inventaryTextAreaMovements.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        inventaryTextAreaMovements.setRows(5);
+        inventaryTextAreaMovements.setText("No Movements");
+        jScrollPane1.setViewportView(inventaryTextAreaMovements);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(inventaryTextArea7, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -115,25 +120,31 @@ public class MovementsHistoryJPanelUI extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inventaryTextArea7, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchCategorieInventory6(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory6
+    private void printInventaryTextAreaMovements() {
+        inventaryTextAreaMovements.setText(inventaryMovementHistory.report());
+    }
 
-    }//GEN-LAST:event_searchCategorieInventory6
+
+    private void searchDateInventoryMovements(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchDateInventoryMovements
+        inventaryTextAreaMovements.setText(inventaryMovementHistory.report(jDateChooserSince.getDate(), jDateChooserUntil.getDate()));
+    }//GEN-LAST:event_searchDateInventoryMovements
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea inventaryTextArea7;
-    private com.toedter.calendar.JDateChooser jDateChooserSince12;
-    private com.toedter.calendar.JDateChooser jDateChooserSince13;
+    private javax.swing.JTextArea inventaryTextAreaMovements;
+    private com.toedter.calendar.JDateChooser jDateChooserSince;
+    private com.toedter.calendar.JDateChooser jDateChooserUntil;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JButton searchCategorieInventory6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton searchDateInventoryMovements;
     // End of variables declaration//GEN-END:variables
 }

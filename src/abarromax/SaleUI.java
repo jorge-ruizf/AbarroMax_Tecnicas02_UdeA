@@ -4,6 +4,20 @@
  */
 package abarromax;
 
+import entities.AbarroMax;
+import static entities.AbarroMax.categories;
+import static entities.AbarroMax.prices;
+import static entities.AbarroMax.products;
+import entities.Price;
+import entities.Product;
+import entities.ProductSale;
+import entities.Sale;
+import java.awt.Frame;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author jorge
@@ -13,9 +27,14 @@ public class SaleUI extends javax.swing.JDialog {
     /**
      * Creates new form SaleUI
      */
+    private Sale sale;
+
     public SaleUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.printInventoryInScroll();
+        this.printComboBoxCategorie();
+        sale = new Sale();
     }
 
     /**
@@ -29,8 +48,30 @@ public class SaleUI extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        home = new javax.swing.JButton();
+        before = new javax.swing.JButton();
+        searchCategorieInventory = new javax.swing.JButton();
+        JTextFieldSearch = new javax.swing.JTextField();
+        comboBoxCategorie = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        inventaryTextArea = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btnAddProduct = new javax.swing.JButton();
+        jYearChooserIdProduct = new com.toedter.calendar.JYearChooser();
+        jYearChooserQuantity = new com.toedter.calendar.JYearChooser();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnDeleteProduct = new javax.swing.JButton();
+        jYearChooserDiscount = new com.toedter.calendar.JYearChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        saleTextArea = new javax.swing.JTextArea();
+        btnSale = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(800, 400));
+        setMinimumSize(new java.awt.Dimension(800, 400));
+        setPreferredSize(new java.awt.Dimension(800, 400));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setForeground(new java.awt.Color(0, 153, 153));
@@ -46,7 +87,9 @@ public class SaleUI extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(342, 342, 342)
                 .addComponent(jLabel1)
-                .addContainerGap(348, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -56,21 +99,300 @@ public class SaleUI extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        searchCategorieInventory.setBackground(new java.awt.Color(0, 153, 153));
+        searchCategorieInventory.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
+        searchCategorieInventory.setForeground(new java.awt.Color(255, 255, 255));
+        searchCategorieInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifying-glass-solid.png"))); // NOI18N
+        searchCategorieInventory.setText("  Search");
+        searchCategorieInventory.setActionCommand("searchCategorieInventory");
+        searchCategorieInventory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        searchCategorieInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchCategorieInventory(evt);
+            }
+        });
+
+        JTextFieldSearch.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        JTextFieldSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTextFieldSearchActionPerformed(evt);
+            }
+        });
+
+        comboBoxCategorie.setFont(new java.awt.Font("Nexa Extra Light", 0, 14)); // NOI18N
+        comboBoxCategorie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alls" }));
+        comboBoxCategorie.setActionCommand("comboBoxCategorie");
+        comboBoxCategorie.setAutoscrolls(true);
+        comboBoxCategorie.setInheritsPopupMenu(true);
+        comboBoxCategorie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxCategorieActionPerformed(evt);
+            }
+        });
+
+        inventaryTextArea.setEditable(false);
+        inventaryTextArea.setColumns(20);
+        inventaryTextArea.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        inventaryTextArea.setRows(5);
+        jScrollPane1.setViewportView(inventaryTextArea);
+
+        jLabel2.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
+        jLabel2.setText("ID:");
+
+        btnAddProduct.setBackground(new java.awt.Color(0, 153, 153));
+        btnAddProduct.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
+        btnAddProduct.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/upload-solid.png"))); // NOI18N
+        btnAddProduct.setText("  Add");
+        btnAddProduct.setActionCommand("searchCategorieInventory");
+        btnAddProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddProduct(evt);
+            }
+        });
+
+        jYearChooserIdProduct.setMinimum(0);
+        jYearChooserIdProduct.setValue(0);
+
+        jYearChooserQuantity.setMinimum(0);
+        jYearChooserQuantity.setValue(0);
+
+        jLabel3.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
+        jLabel3.setText("Quantity:");
+
+        jLabel4.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
+        jLabel4.setText("Discount:");
+
+        btnDeleteProduct.setBackground(new java.awt.Color(0, 153, 153));
+        btnDeleteProduct.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
+        btnDeleteProduct.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rotate-left-solid.png"))); // NOI18N
+        btnDeleteProduct.setText("  Delete");
+        btnDeleteProduct.setActionCommand("searchCategorieInventory");
+        btnDeleteProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeleteProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteProduct(evt);
+            }
+        });
+
+        jYearChooserDiscount.setMinimum(0);
+        jYearChooserDiscount.setValue(0);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jYearChooserIdProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jYearChooserQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(btnDeleteProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jYearChooserDiscount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jYearChooserIdProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jYearChooserQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jYearChooserDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        saleTextArea.setColumns(20);
+        saleTextArea.setRows(5);
+        jScrollPane2.setViewportView(saleTextArea);
+
+        btnSale.setBackground(new java.awt.Color(0, 153, 153));
+        btnSale.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
+        btnSale.setForeground(new java.awt.Color(255, 255, 255));
+        btnSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cart-shopping-solid.png"))); // NOI18N
+        btnSale.setText("  Sale");
+        btnSale.setActionCommand("searchCategorieInventory");
+        btnSale.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSale(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1)
+                    .addComponent(btnSale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(JTextFieldSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(comboBoxCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(searchCategorieInventory)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 300, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(JTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboBoxCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchCategorieInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSale, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void printInventoryInScroll() {
+        String inventaryText = "";
+        
+        inventaryText = inventaryText.concat(AbarroMax.inventory.printInventoryCatalog(comboBoxCategorie.getSelectedIndex() - 1, JTextFieldSearch.getText().trim(), AbarroMax.products, AbarroMax.categories, AbarroMax.prices));
+
+        this.inventaryTextArea.setText(inventaryText);
+    }
+
+    private void printComboBoxCategorie() {
+        for (int i = 0; i < AbarroMax.categories.getCategories().size(); i++) {
+            comboBoxCategorie.addItem(AbarroMax.categories.getCategories().get(i));
+        }
+    }
+
+    private void homegoHome(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homegoHome
+        this.dispose();
+        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
+        Main main = new Main(parent, true);
+        main.setVisible(true);
+    }//GEN-LAST:event_homegoHome
+
+    private void beforegoBefore(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beforegoBefore
+        this.dispose();
+        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
+        Main main = new Main(parent, true);
+        main.setVisible(true);
+    }//GEN-LAST:event_beforegoBefore
+
+    private void searchCategorieInventory6(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory6
+
+    }//GEN-LAST:event_searchCategorieInventory6
+
+    private void searchCategorieInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory
+        this.printInventoryInScroll();
+    }//GEN-LAST:event_searchCategorieInventory
+
+    private void JTextFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTextFieldSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTextFieldSearchActionPerformed
+
+    private void comboBoxCategorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCategorieActionPerformed
+
+    }//GEN-LAST:event_comboBoxCategorieActionPerformed
+
+
+    private void btnAddProduct(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProduct
+
+        int idProduct = jYearChooserIdProduct.getValue();
+        int discount = jYearChooserDiscount.getValue();
+        int quantity = jYearChooserQuantity.getValue();
+
+        boolean isAdd = false;
+
+        // Verificar que los valores estén dentro de los rangos válidos
+        for (ProductSale ps : sale.getProductSales()) {
+            if (ps.getProductId() == idProduct) {
+                isAdd = true;
+            }
+        }
+        if (isAdd) {
+            JOptionPane.showMessageDialog(null, "The product has already been added", "Alert", JOptionPane.WARNING_MESSAGE);
+
+        } else if (idProduct < 0 || idProduct >= AbarroMax.products.size()) {
+            JOptionPane.showMessageDialog(null, "The ID product is out of index", "Alert", JOptionPane.WARNING_MESSAGE);
+
+        } else if (discount < 0 || discount >= 100) {
+            JOptionPane.showMessageDialog(null, "Invalid discount", "Alert", JOptionPane.WARNING_MESSAGE);
+
+        } else if (quantity < 1 || quantity > AbarroMax.inventory.getInventory().get(idProduct)) {
+            JOptionPane.showMessageDialog(null, "Exced the actual stock of the product", "Alert", JOptionPane.WARNING_MESSAGE);
+        } else {
+            ProductSale productSale = new ProductSale(idProduct, discount, quantity);
+            sale.addProduct(productSale);
+        }
+        printSaleTextArea();
+
+
+    }//GEN-LAST:event_btnAddProduct
+
+    private void btnDeleteProduct(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProduct
+        int idProduct = jYearChooserIdProduct.getValue();
+
+        sale.removeProductById(idProduct);
+        printSaleTextArea();
+    }//GEN-LAST:event_btnDeleteProduct
+
+    private void btnSale(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSale
+        String receipt = sale.printReceipt();
+        AbarroMax.sales.addSale(sale);
+        sale = new Sale();
+        JOptionPane.showMessageDialog(null, receipt, "Sale Receipt", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnSale
+
+    private void printSaleTextArea() {
+        String text = new String();
+        text = sale.getProductSalesAsString();
+
+        saleTextArea.setText(text);
+    }
 
     /**
      * @param args the command line arguments
@@ -115,7 +437,27 @@ public class SaleUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField JTextFieldSearch;
+    private javax.swing.JButton before;
+    private javax.swing.JButton btnAddProduct;
+    private javax.swing.JButton btnDeleteProduct;
+    private javax.swing.JButton btnSale;
+    private javax.swing.JComboBox<String> comboBoxCategorie;
+    private javax.swing.JButton home;
+    private javax.swing.JTextArea inventaryTextArea;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private com.toedter.calendar.JYearChooser jYearChooserDiscount;
+    private com.toedter.calendar.JYearChooser jYearChooserIdProduct;
+    private com.toedter.calendar.JYearChooser jYearChooserQuantity;
+    private javax.swing.JTextArea saleTextArea;
+    private javax.swing.JButton searchCategorieInventory;
+    private javax.swing.JButton searchCategorieInventory6;
     // End of variables declaration//GEN-END:variables
 }

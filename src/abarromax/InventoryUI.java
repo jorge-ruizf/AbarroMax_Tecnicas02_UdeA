@@ -4,8 +4,17 @@
  */
 package abarromax;
 
+import entities.Categories;
+import entities.AbarroMax;
+import static entities.AbarroMax.categories;
+import static entities.AbarroMax.inventory;
+import static entities.AbarroMax.products;
+import entities.Inventory;
+import entities.Product;
 import java.awt.Frame;
 import javax.swing.SwingUtilities;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -38,10 +47,15 @@ public class InventoryUI extends javax.swing.JDialog {
         inventaryText = new javax.swing.JScrollPane();
         inventaryTextArea = new javax.swing.JTextArea();
         goMovements = new javax.swing.JButton();
-        goStock = new javax.swing.JButton();
-        goCategories = new javax.swing.JButton();
+        searchCategorieInventory = new javax.swing.JButton();
+        comboBoxCategorie = new javax.swing.JComboBox<>();
+        JTextFieldSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(800, 400));
+        setMinimumSize(new java.awt.Dimension(800, 400));
+        setModal(true);
+        setPreferredSize(new java.awt.Dimension(800, 400));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setForeground(new java.awt.Color(0, 153, 153));
@@ -108,7 +122,6 @@ public class InventoryUI extends javax.swing.JDialog {
         inventaryTextArea.setEditable(false);
         inventaryTextArea.setColumns(20);
         inventaryTextArea.setRows(5);
-        inventaryTextArea.setText("El inventario esta vacio");
         inventaryText.setViewportView(inventaryTextArea);
 
         goMovements.setBackground(new java.awt.Color(0, 153, 153));
@@ -147,6 +160,49 @@ public class InventoryUI extends javax.swing.JDialog {
             }
         });
 
+        JTextFieldSearch.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        JTextFieldSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTextFieldSearchActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JTextFieldSearch)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(comboBoxCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(searchCategorieInventory))
+                            .addComponent(goMovements, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(JTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(comboBoxCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(searchCategorieInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addComponent(goMovements)
+                .addContainerGap())
+        );
+
+        searchCategorieInventory.getAccessibleContext().setAccessibleName("  searchCategorieInventory");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -180,20 +236,25 @@ public class InventoryUI extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void printInventoryInScroll(){
-        String inventaryText = "primera linea";
-        for(int i = 0; i < 50; i++){
-            inventaryText = inventaryText.concat("ababbsa\n");
-        }
-        
+    private void printInventoryInScroll() {
+        String inventaryText = "";
+        Inventory inventory = AbarroMax.inventory;
+        inventaryText = inventaryText.concat(inventory.printInventoryForCategorie(comboBoxCategorie.getSelectedIndex() - 1, JTextFieldSearch.getText().trim(), AbarroMax.products, AbarroMax.categories));
+
         this.inventaryTextArea.setText(inventaryText);
     }
-    
-    private void goStock(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goStock
-        // TODO add your handling code here:
-    }//GEN-LAST:event_goStock
 
-    private void goMovements(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goMovements
+    private void printComboBoxCategorie() {
+        for (int i = 0; i < AbarroMax.categories.getCategories().size(); i++) {
+            comboBoxCategorie.addItem(AbarroMax.categories.getCategories().get(i));
+        }
+    }
+
+    private void searchCategorieInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory
+        this.printInventoryInScroll();
+    }//GEN-LAST:event_searchCategorieInventory
+
+    private void goHome(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goHome
         this.dispose();
         Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
         InventoryUI inventoryUI = new InventoryUI(parent, true);
@@ -208,9 +269,20 @@ public class InventoryUI extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_goBefore
 
-    private void goCategories(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goCategories
+    private void comboBoxCategorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCategorieActionPerformed
+
+    }//GEN-LAST:event_comboBoxCategorieActionPerformed
+
+    private void goMovements(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goMovements
+        this.dispose();
+        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
+        MovementsUI movementsUI = new MovementsUI(parent, true);
+        movementsUI.setVisible(true);
+    }//GEN-LAST:event_goMovements
+
+    private void JTextFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTextFieldSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_goCategories
+    }//GEN-LAST:event_JTextFieldSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,6 +327,7 @@ public class InventoryUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField JTextFieldSearch;
     private javax.swing.JButton before;
     private javax.swing.JButton goCategories;
     private javax.swing.JButton goMovements;
@@ -264,5 +337,7 @@ public class InventoryUI extends javax.swing.JDialog {
     private javax.swing.JTextArea inventaryTextArea;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton searchCategorieInventory;
     // End of variables declaration//GEN-END:variables
 }

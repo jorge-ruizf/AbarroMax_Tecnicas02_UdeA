@@ -5,10 +5,8 @@
 package abarromax;
 
 //import javax.swing.ImageIcon;
-
 import java.awt.Frame;
 import javax.swing.SwingUtilities;
-
 
 /**
  *
@@ -20,11 +18,11 @@ public class Main extends javax.swing.JDialog {
      * Creates new form Start
      */
     private Main parent;
-    
+
     public Main(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         // ImageIcon icono = new ImageIcon(getClass().getResource("/images/icon-home.png"));
         // home.setIcon(icono);
     }
@@ -36,8 +34,6 @@ public class Main extends javax.swing.JDialog {
     public void setParent(Main parent) {
         this.parent = parent;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,8 +50,8 @@ public class Main extends javax.swing.JDialog {
         goInventory1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        home = new javax.swing.JButton();
-        before = new javax.swing.JButton();
+        goReport = new javax.swing.JButton();
+        goCatalog = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,60 +86,21 @@ public class Main extends javax.swing.JDialog {
         title.setForeground(new java.awt.Color(255, 255, 255));
         title.setText("AbarroMax");
 
-        home.setBackground(new java.awt.Color(0, 153, 153));
-        home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-home.png"))); // NOI18N
-        home.setActionCommand("goMain");
-        home.setBorder(null);
-        home.setBorderPainted(false);
-        home.setContentAreaFilled(false);
-        home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        home.setPreferredSize(new java.awt.Dimension(518, 519));
-        home.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goHome(evt);
-            }
-        });
-
-        before.setBackground(new java.awt.Color(0, 153, 153));
-        before.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/arrow-left-solid.png"))); // NOI18N
-        before.setActionCommand("goBefore");
-        before.setBorder(null);
-        before.setBorderPainted(false);
-        before.setContentAreaFilled(false);
-        before.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        before.setPreferredSize(new java.awt.Dimension(518, 519));
-        before.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goBefore(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(before, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                .addComponent(title)
-                .addGap(119, 119, 119)
-                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addContainerGap(260, Short.MAX_VALUE)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(241, 241, 241))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(title))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(before, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(title)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,13 +142,19 @@ public class Main extends javax.swing.JDialog {
         inventoryUI.setVisible(true);
     }//GEN-LAST:event_btnInventory
 
-    private void goHome(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goHome
-        // TODO add your handling code here:
-    }//GEN-LAST:event_goHome
+    private void goReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goReport
+        this.dispose();
+        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
+        ReportUI reportUI = new ReportUI(parent, true);
+        reportUI.setVisible(true);
+    }//GEN-LAST:event_goReport
 
-    private void goBefore(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBefore
-        // TODO add your handling code here:
-    }//GEN-LAST:event_goBefore
+    private void goCatalog(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goCatalog
+        this.dispose();
+        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
+        CatalogUI catalogUI = new CatalogUI(parent, true);
+        catalogUI.setVisible(true);
+    }//GEN-LAST:event_goCatalog
 
     /**
      * @param args the command line arguments
@@ -234,7 +197,7 @@ public class Main extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0); 
+                        System.exit(0);
                     }
                 });
                 dialog.setVisible(true);
@@ -243,10 +206,9 @@ public class Main extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton before;
+    private javax.swing.JButton goCatalog;
     private javax.swing.JButton goInventory1;
     private javax.swing.JButton goSale;
-    private javax.swing.JButton home;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;

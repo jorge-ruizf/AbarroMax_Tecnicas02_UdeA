@@ -4,6 +4,10 @@
  */
 package abarromax;
 
+import entities.AbarroMax;
+import static entities.AbarroMax.inventaryMovementHistory;
+import static entities.AbarroMax.inventory;
+
 /**
  *
  * @author jorge
@@ -15,6 +19,8 @@ public class MovementsLoadJPanelUI extends javax.swing.JPanel {
      */
     public MovementsLoadJPanelUI() {
         initComponents();
+        printJYearChooserIdInventory();
+        printInventaryTextAreaMovements();
     }
 
     /**
@@ -28,29 +34,29 @@ public class MovementsLoadJPanelUI extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        searchCategorieInventory = new javax.swing.JButton();
-        jYearChooser1 = new com.toedter.calendar.JYearChooser();
-        inventaryTextArea1 = new javax.swing.JTextArea();
+        LoadIdInventory = new javax.swing.JButton();
+        jYearChooserIdInventory = new com.toedter.calendar.JYearChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        inventaryTextAreaMovements = new javax.swing.JTextArea();
 
         jLabel2.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
         jLabel2.setText("ID:");
 
-        searchCategorieInventory.setBackground(new java.awt.Color(0, 153, 153));
-        searchCategorieInventory.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
-        searchCategorieInventory.setForeground(new java.awt.Color(255, 255, 255));
-        searchCategorieInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifying-glass-solid.png"))); // NOI18N
-        searchCategorieInventory.setText("  Search");
-        searchCategorieInventory.setActionCommand("searchCategorieInventory");
-        searchCategorieInventory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        searchCategorieInventory.addActionListener(new java.awt.event.ActionListener() {
+        LoadIdInventory.setBackground(new java.awt.Color(0, 153, 153));
+        LoadIdInventory.setFont(new java.awt.Font("Nexa Heavy", 0, 24)); // NOI18N
+        LoadIdInventory.setForeground(new java.awt.Color(255, 255, 255));
+        LoadIdInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rotate-left-solid.png"))); // NOI18N
+        LoadIdInventory.setText("  Load");
+        LoadIdInventory.setActionCommand("searchCategorieInventory");
+        LoadIdInventory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LoadIdInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchCategorieInventory(evt);
+                LoadIdInventory(evt);
             }
         });
 
-        jYearChooser1.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jYearChooser1.setMinimum(0);
-        jYearChooser1.setValue(0);
+        jYearChooserIdInventory.setMinimum(0);
+        jYearChooserIdInventory.setValue(0);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -59,11 +65,11 @@ public class MovementsLoadJPanelUI extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchCategorieInventory, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                    .addComponent(LoadIdInventory, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jYearChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jYearChooserIdInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -72,25 +78,26 @@ public class MovementsLoadJPanelUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jYearChooserIdInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(searchCategorieInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LoadIdInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        inventaryTextArea1.setEditable(false);
-        inventaryTextArea1.setColumns(20);
-        inventaryTextArea1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        inventaryTextArea1.setRows(5);
-        inventaryTextArea1.setText("El inventario esta vacio");
+        inventaryTextAreaMovements.setEditable(false);
+        inventaryTextAreaMovements.setColumns(20);
+        inventaryTextAreaMovements.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        inventaryTextAreaMovements.setRows(5);
+        inventaryTextAreaMovements.setText("No Inventory");
+        jScrollPane1.setViewportView(inventaryTextAreaMovements);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(inventaryTextArea1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -99,23 +106,34 @@ public class MovementsLoadJPanelUI extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inventaryTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchCategorieInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory
+    private void printInventaryTextAreaMovements() {
+        inventaryTextAreaMovements.setText(inventaryMovementHistory.report());
+    }
 
-    }//GEN-LAST:event_searchCategorieInventory
+    private void printJYearChooserIdInventory() {
+        jYearChooserIdInventory.setMaximum(AbarroMax.inventaryMovementHistory.getInventoryMovementHistory().size() - 1);
+        jYearChooserIdInventory.setMinimum(0);
+    }
+
+
+    private void LoadIdInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadIdInventory
+        AbarroMax.inventory.setInventory(AbarroMax.inventaryMovementHistory.getInventoryMovementHistory().get(jYearChooserIdInventory.getValue()).getInventory());
+    }//GEN-LAST:event_LoadIdInventory
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea inventaryTextArea1;
+    private javax.swing.JButton LoadIdInventory;
+    private javax.swing.JTextArea inventaryTextAreaMovements;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
-    private com.toedter.calendar.JYearChooser jYearChooser1;
-    private javax.swing.JButton searchCategorieInventory;
+    private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JYearChooser jYearChooserIdInventory;
     // End of variables declaration//GEN-END:variables
 }

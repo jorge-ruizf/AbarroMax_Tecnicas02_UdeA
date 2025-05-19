@@ -1,20 +1,37 @@
 package entities;
 
 
+import static entities.AbarroMax.prices;
 import java.util.ArrayList;
 import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
 
-public class Sale {
+public class Sale implements Transaction {
     private ArrayList<ProductSale> productSales;
     private int saleId;
-    private int employeeId;
-    private float discount; // descuento general en %
+    private String employeeName;
+    private float discount;
+    private float total;
+    private Date date;
 
-    public Sale(ArrayList<ProductSale> productSales, int saleId, int employeeId, float discount) {
+    public Sale() {
+        this.productSales = new ArrayList<ProductSale>();
+        this.saleId = 0;
+        this.employeeName = "";
+        this.discount = 0;
+        this.total = 0;
+        this.date = new Date();
+    }
+
+    public Sale(ArrayList<ProductSale> productSales, int saleId, String employeeName, float discount) {
         this.productSales = productSales;
         this.saleId = saleId;
-        this.employeeId = employeeId;
+        this.employeeName = employeeName;
         this.discount = discount;
+        this.date = new Date();
     }
 
     public ArrayList<ProductSale> getProductSales() {
@@ -33,16 +50,32 @@ public class Sale {
         this.saleId = saleId;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
     public float getDiscount() {
         return discount;
+    }
+    
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
     }
 
     public void setDiscount(float discount) {
@@ -51,7 +84,15 @@ public class Sale {
 
     public void addProduct(ProductSale ps) {
         productSales.add(ps);
-        System.out.println("Producto agregado a la venta.");
+    }
+    
+    public void removeProductById(int id) {
+        for (ProductSale ps : productSales) {
+            if (ps.getProductId() == id) {
+                productSales.remove(ps);
+                break;
+            }
+        }
     }
 
     public float calculateSubtotalCost() {
@@ -71,25 +112,63 @@ public class Sale {
         float discountAmount = subtotal * (discount / 100f);
         return subtotal - discountAmount;
     }
-
-    public void printReceipt() {
-        System.out.println("=== RECIBO DE VENTA ===");
-        System.out.println("Venta ID: " + saleId);
-        System.out.println("Empleado ID: " + employeeId);
-        System.out.println("Productos:");
+    
+    public String getProductSalesAsString() {
+        String text = "";
         for (ProductSale ps : productSales) {
-            System.out.println("- Producto ID: " + ps.getProductId() + 
-                               " | Oferta ID: " + ps.getOfferId() +
-                               " | Cantidad: " + ps.getStock());
+            text = text.concat("Product ID: " + ps.getProductId() + ", Offer: " + ps.getOffer() + ", Stock: " + ps.getStock() + "\n");
         }
-        System.out.println("Subtotal: $" + calculateSubtotalCost());
-        System.out.println("Descuento aplicado: " + discount + "%");
-        System.out.println("Total a pagar: $" + calculateTotalCost());
-        System.out.println("=========================");
+        return text;
     }
 
-    Date getSaleDate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String printReceipt() {
+        float total = 0;
+        float discount = 0;
+        String receipt = "=== Receipt ===\n";
+
+        for (ProductSale ps : this.getProductSales()) {
+            Product product = AbarroMax.products.get(ps.getProductId());  // Obtener el producto
+            int quantitySold = ps.getStock();
+
+            float priceTemp = 0;
+
+            HashMap<Integer, Price> productPrices = prices.getPrices().get(ps.getProductId());
+
+            if (productPrices != null) {
+                for (Map.Entry<Integer, Price> priceEntry : productPrices.entrySet()) {
+                    int quantityPrice = priceEntry.getKey();
+                    if (quantitySold <= quantityPrice) {
+                        Price priceObj = priceEntry.getValue();
+                        priceTemp = priceObj.getPrice();
+                    }
+                }
+            }
+
+            float price = priceTemp;
+            float subTotalPrice = price * quantitySold;
+            float totalPrice = subTotalPrice - subTotalPrice * ps.getOffer() / 100;
+            float discountAmount = subTotalPrice * ps.getOffer() / 100;
+
+            // Mostrar información del producto
+            receipt = receipt.concat("Product: " + product.getName() + " | Quantity: " + quantitySold + " | Price: $" + price + " | Subtotal: $" + subTotalPrice + " | Total: $" + totalPrice + "\n");
+
+            total += totalPrice;
+            discount += discountAmount;
+        }
+
+        receipt = receipt.concat("\nSubtotal: $" + Float.toString(total + discount) + "\nDiscount: -$" + discount + "\nTotal: $" + total + "\n\nThank you for your purchase!");
+        this.setTotal(total);
+
+
+        return receipt;
     }
+    
+    
+    
+    @Override
+    public double calculateAmount() {
+        return (double) calculateTotalCost();
+    }
+    
 }
 

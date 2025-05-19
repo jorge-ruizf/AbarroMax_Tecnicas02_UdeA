@@ -4,6 +4,15 @@
  */
 package abarromax;
 
+import entities.Categories;
+import entities.Inventory;
+import entities.InventoryMovementHistory;
+import entities.Prices;
+import entities.Product;
+import entities.Returns;
+import entities.Sales;
+import java.util.ArrayList;
+
 /**
  *
  * @author jorge
@@ -19,8 +28,9 @@ public class MainNode extends javax.swing.JFrame {
         setSize(0, 0);
         setLocationRelativeTo(null); // centrado
         setVisible(true);
-        
+
         openMain();
+
     }
 
     public void openMain() {
@@ -29,6 +39,7 @@ public class MainNode extends javax.swing.JFrame {
         dispose();
         System.exit(0);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
