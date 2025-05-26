@@ -24,12 +24,19 @@ public class Inventory {
     public void setInventory(HashMap<Integer, Integer> inventory) {
         this.inventory = inventory;
     }
+    
+    public void addProduct(int productId, int quantity) {
+        if (!inventory.containsKey(productId)) {
+            inventory.put(productId, quantity);
+        } else {
+            System.out.println("El producto ya está registrado. Use 'quantityChangeProduct' primero.");
+        }
+    }
 
     // Agregar cantidad a un producto existente
-    public void addProduct(int productId, int quantity) {
+    public void quantityChangeProduct(int productId, int quantity) {
         if (inventory.containsKey(productId)) {
-            int currentQty = inventory.get(productId);
-            inventory.put(productId, currentQty + quantity);
+            inventory.put(productId, quantity);
             System.out.println("Se agregó " + quantity + " unidades al producto ID " + productId + ".");
         } else {
             System.out.println("El producto no está registrado. Use 'registerProduct' primero.");
@@ -140,8 +147,7 @@ public class Inventory {
     }
     
     public String printInventoryCatalog(int selectedCategorie, String selectedName, ArrayList<Product> products, Categories categories, Prices prices){
-        String text = "";        
-        HashMap<Integer, Integer> inventory = AbarroMax.inventory.getInventory();
+        String text = "";
 
         // Recorrer el HashMap
         for (Map.Entry<Integer, Integer> entry : inventory.entrySet()) {

@@ -4,12 +4,14 @@
  */
 package abarromax;
 
+import com.mongodb.client.MongoClient;
 import entities.Categories;
 import entities.AbarroMax;
 import static entities.AbarroMax.categories;
-import static entities.AbarroMax.inventory;
-import static entities.AbarroMax.prices;
+//import static entities.AbarroMax.inventory;
+//import static entities.AbarroMax.prices;
 import static entities.AbarroMax.products;
+import entities.Inventory;
 import entities.Price;
 import entities.Product;
 import java.awt.Frame;
@@ -19,6 +21,9 @@ import javax.swing.SwingUtilities;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import repository.InventoryRepository;
+import repository.MongoConnection;
+import repository.ProductRepository;
 
 /**
  *
@@ -29,11 +34,14 @@ public class CatalogUI extends javax.swing.JDialog {
     /**
      * Creates new form InventoryUI
      */
+    private ArrayList<Product> products;
+    private Inventory inventory;
     public CatalogUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.printInventoryInScroll();
+        this.conectDB();
         this.printComboBoxCategorie();
+        this.printInventoryInScroll();
     }
 
     /**
@@ -216,6 +224,19 @@ public class CatalogUI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void conectDB(){
+        
+        try (MongoClient client = MongoConnection.createClient()) {
+            ProductRepository productRepository = new ProductRepository(client);
+            products =  productRepository.getAllProducts();
+            InventoryRepository inventoryRepository = new InventoryRepository(client);
+            inventory =  inventoryRepository.getInventory();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void printInventoryInScroll() {
         String searchTerm = JTextFieldSearch.getText().trim();
 
@@ -226,14 +247,7 @@ public class CatalogUI extends javax.swing.JDialog {
     }
 
     // Si se pasa la validación, procede
-        String inventaryText = AbarroMax.inventory.printInventoryCatalog(
-            comboBoxCategorie.getSelectedIndex() - 1,
-            searchTerm,
-            AbarroMax.products,
-            AbarroMax.categories,
-            AbarroMax.prices
-    );
-
+    String inventaryText = this.inventory.printInventoryCatalog(comboBoxCategorie.getSelectedIndex() - 1, searchTerm, this.products, AbarroMax.categories, AbarroMax.prices );
     this.inventaryTextArea.setText(inventaryText);
 }
 

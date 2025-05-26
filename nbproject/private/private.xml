@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/CatalogUI.java</file>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/InventoryUI.java</file>
             <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/Main.java</file>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/MainNode.java</file>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/MovementsHistoryJPanelUI.java</file>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/MovementsLoadJPanelUI.java</file>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/MovementsUI.java</file>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/MovementsUploadJPanelUI.java</file>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/ReportUI.java</file>
             <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/SaleUI.java</file>
+            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/MovementsUI.java</file>
+            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/MongoConnection.java</file>
+            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/entities/Inventory.java</file>
+            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/entities/AbarroMax.java</file>
         </group>
     </open-files>
 </project-private>

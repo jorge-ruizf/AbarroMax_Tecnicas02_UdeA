@@ -9,7 +9,14 @@ import java.util.HashMap;
 import java.util.Date;
 import java.util.Calendar;
 
+
+import com.mongodb.client.MongoClient;
+import repository.MongoConnection;
+import repository.ProductRepository;
+
+
 public class AbarroMax {
+    
 
     public static Inventory inventory;
     public static ArrayList<Product> products;
@@ -20,7 +27,6 @@ public class AbarroMax {
     public static Returns returns;
 
     static {
-
         categories = new Categories();
         ArrayList<String> categoriesStrings = new ArrayList();
         categoriesStrings.add("Medicine");

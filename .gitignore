@@ -1,0 +1,32 @@
+# === Archivos compilados ===
+*.class
+
+# === Directorios de compilación comunes ===
+/build/
+/dist/
+
+# === Archivos de NetBeans ===
+nbproject/private/
+build.xml~
+nbbuild/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# === Archivos de sistema ===
+*.log
+*.bak
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+
+# === Librerías externas ===
+*.jar
+
+# === Archivos de configuración de IDEs (por si usas otros) ===
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
