@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.SwingUtilities;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -233,13 +234,32 @@ public class InventoryUI extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void printInventoryInScroll() {
-        String inventaryText = "";
-        Inventory inventory = AbarroMax.inventory;
-        inventaryText = inventaryText.concat(inventory.printInventoryForCategorie(comboBoxCategorie.getSelectedIndex() - 1, JTextFieldSearch.getText().trim(), AbarroMax.products, AbarroMax.categories));
+  private void printInventoryInScroll() {
+    String searchText = JTextFieldSearch.getText().trim();
 
-        this.inventaryTextArea.setText(inventaryText);
+    // Validar que el texto solo contenga letras (incluye acentos y ñ)
+    if (!searchText.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]*")) {
+        JOptionPane.showMessageDialog(this, "El texto de búsqueda solo debe contener letras, sin espacios ni caracteres especiales.");
+        return;
     }
+
+    int selectedIndex = comboBoxCategorie.getSelectedIndex();
+    if (selectedIndex < 0) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar una categoría.");
+        return;
+    }
+
+    Inventory inventory = AbarroMax.inventory;
+    String inventoryText = inventory.printInventoryForCategorie(
+        selectedIndex - 1,  
+        searchText,
+        AbarroMax.products,
+        AbarroMax.categories
+    );
+
+    this.inventaryTextArea.setText(inventoryText);
+}
+
 
     private void printComboBoxCategorie() {
         for (int i = 0; i < AbarroMax.categories.getCategories().size(); i++) {

@@ -339,13 +339,34 @@ public class SaleUI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+   
     private void printInventoryInScroll() {
         String inventaryText = "";
-        
-        inventaryText = inventaryText.concat(AbarroMax.inventory.printInventoryCatalog(comboBoxCategorie.getSelectedIndex() - 1, JTextFieldSearch.getText().trim(), AbarroMax.products, AbarroMax.categories, AbarroMax.prices));
 
-        this.inventaryTextArea.setText(inventaryText);
+        // Validar que el texto ingresado solo contenga letras y espacios opcionales
+        String searchText = JTextFieldSearch.getText().trim();
+
+        if (!searchText.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$")) {
+            JOptionPane.showMessageDialog(this, "El texto de búsqueda solo debe contener letras, sin espacios ni caracteres especiales.", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
+            return; // Detener ejecución si la entrada es inválida
     }
+
+        // Obtener el índice seleccionado del combo box
+        int selectedIndex = comboBoxCategorie.getSelectedIndex() - 1;
+
+        inventaryText = inventaryText.concat(
+            AbarroMax.inventory.printInventoryCatalog(
+                selectedIndex,
+                searchText,
+                AbarroMax.products,
+                AbarroMax.categories,
+                AbarroMax.prices
+            )
+        );
+
+    this.inventaryTextArea.setText(inventaryText);
+}
+
 
     private void printComboBoxCategorie() {
         for (int i = 0; i < AbarroMax.categories.getCategories().size(); i++) {

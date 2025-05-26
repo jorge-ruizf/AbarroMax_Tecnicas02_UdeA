@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.SwingUtilities;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -101,9 +102,9 @@ public class CatalogUI extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(before, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(249, 249, 249)
+                .addGap(244, 244, 244)
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
@@ -214,13 +215,29 @@ public class CatalogUI extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void printInventoryInScroll() {
-        String inventaryText = "";
-        
-        inventaryText = inventaryText.concat(AbarroMax.inventory.printInventoryCatalog(comboBoxCategorie.getSelectedIndex() - 1, JTextFieldSearch.getText().trim(), AbarroMax.products, AbarroMax.categories, AbarroMax.prices));
 
-        this.inventaryTextArea.setText(inventaryText);
+    private void printInventoryInScroll() {
+        String searchTerm = JTextFieldSearch.getText().trim();
+
+    // Validación: no permitir caracteres especiales (solo letras, números y espacios)
+        if (!searchTerm.matches ("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$")) {
+            JOptionPane.showMessageDialog(this, "El texto de búsqueda solo debe contener letras, sin espacios ni caracteres especiales.", "Error de búsqueda", JOptionPane.ERROR_MESSAGE);
+        return;
     }
+
+    // Si se pasa la validación, procede
+        String inventaryText = AbarroMax.inventory.printInventoryCatalog(
+            comboBoxCategorie.getSelectedIndex() - 1,
+            searchTerm,
+            AbarroMax.products,
+            AbarroMax.categories,
+            AbarroMax.prices
+    );
+
+    this.inventaryTextArea.setText(inventaryText);
+}
+
+  
 
     private void printComboBoxCategorie() {
         for (int i = 0; i < AbarroMax.categories.getCategories().size(); i++) {
