@@ -1,32 +1,53 @@
-package repository;
+package Repository;
 
 import com.mongodb.client.*;
-import entities.Product;
 import org.bson.Document;
+import entities.ProductSale;
+import entities.Sale;
+import entities.Sales;
 
 import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-public class ProductRepository {
-    private final MongoCollection<Document> collection;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public ProductRepository(MongoClient mongoClient) {
+
+public class ReturnsRepository {
+    private final MongoCollection<Document> salesCollection;
+
+    public ReturnsRepository(MongoClient mongoClient) {
         MongoDatabase database = mongoClient.getDatabase("AbarroMaxDB");
-        this.collection = database.getCollection("productsDB");
+        this.salesCollection = database.getCollection("salesDB");
     }
 
-    public ArrayList<Product> getAllProducts() {
-        ArrayList<Product> products = new ArrayList<>();
+    public Sales getSales() {
+        Sales sales = new Sales();
+        //ArrayList<Sale> sales = new ArrayList<>();
 
-        FindIterable<Document> docs = collection.find();
+        FindIterable<Document> docs = salesCollection.find();
         for (Document doc : docs) {
-            int id = doc.getInteger("_id");
-            String name = doc.getString("name");
-            int categoryId = doc.getInteger("category");
-            String supplier = doc.getString("brand");
+            int saleId = doc.getInteger("saleId");
+            String customerName = doc.getString("customerName");
+            int discount = doc.getInteger("discount");
+            
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-            products.add(new Product(id, name, categoryId, supplier));
+            Date date = Date.valueOf(LocalDate.parse(doc.getString("date"), formatter));
+
+            ArrayList<ProductSale> products = new ArrayList<>();
+            for (Document p : doc.getList("productSales", Document.class)) {
+                int productId = p.getInteger("productId");
+                int quantity = p.getInteger("quantity");
+                int offer = p.getInteger("offer");
+                products.add(new ProductSale(productId, offer, quantity));
+            }
+
+            sales.addSale(new Sale(products, saleId, customerName, discount, date));
         }
 
-        return products;
+        return sales;
     }
 }

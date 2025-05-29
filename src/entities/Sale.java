@@ -1,7 +1,6 @@
 package entities;
 
 
-import static entities.AbarroMax.prices;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -13,8 +12,7 @@ public class Sale implements Transaction {
     private ArrayList<ProductSale> productSales;
     private int saleId;
     private String employeeName;
-    private float discount;
-    private float total;
+    private int discount;
     private Date date;
 
     public Sale() {
@@ -22,11 +20,18 @@ public class Sale implements Transaction {
         this.saleId = 0;
         this.employeeName = "";
         this.discount = 0;
-        this.total = 0;
         this.date = new Date();
     }
 
-    public Sale(ArrayList<ProductSale> productSales, int saleId, String employeeName, float discount) {
+    public Sale(ArrayList<ProductSale> productSales, int saleId, String employeeName, int discount, Date date) {
+        this.productSales = productSales;
+        this.saleId = saleId;
+        this.employeeName = employeeName;
+        this.discount = discount;
+        this.date = date;
+    }
+    
+    public Sale(ArrayList<ProductSale> productSales, int saleId, String employeeName, int discount) {
         this.productSales = productSales;
         this.saleId = saleId;
         this.employeeName = employeeName;
@@ -66,19 +71,11 @@ public class Sale implements Transaction {
         this.date = date;
     }
     
-    public float getDiscount() {
+    public int getDiscount() {
         return discount;
     }
     
-    public float getTotal() {
-        return total;
-    }
-
-    public void setTotal(float total) {
-        this.total = total;
-    }
-
-    public void setDiscount(float discount) {
+    public void setDiscount(int discount) {
         this.discount = discount;
     }
 
@@ -98,9 +95,8 @@ public class Sale implements Transaction {
     public float calculateSubtotalCost() {
         float subtotal = 0;
         for (ProductSale ps : productSales) {
-            // Suponemos que los datos de precio y descuento se obtienen externamente
-            float dummyPrice = 1000f; // Este valor debería obtenerse desde Prices
-            float dummyDiscount = 0f; // Este valor debería venir desde Offers
+            float dummyPrice = 1000f;
+            float dummyDiscount = 0f;
 
             subtotal += ps.calculateProductCost(dummyPrice, dummyDiscount);
         }
@@ -121,13 +117,13 @@ public class Sale implements Transaction {
         return text;
     }
 
-    public String printReceipt() {
+    public String printReceipt(ArrayList<Product> products, Prices prices) {
         float total = 0;
         float discount = 0;
         String receipt = "=== Receipt ===\n";
 
         for (ProductSale ps : this.getProductSales()) {
-            Product product = AbarroMax.products.get(ps.getProductId());  // Obtener el producto
+            Product product = products.get(ps.getProductId());  // Obtener el producto
             int quantitySold = ps.getStock();
 
             float priceTemp = 0;
@@ -157,7 +153,6 @@ public class Sale implements Transaction {
         }
 
         receipt = receipt.concat("\nSubtotal: $" + Float.toString(total + discount) + "\nDiscount: -$" + discount + "\nTotal: $" + total + "\n\nThank you for your purchase!");
-        this.setTotal(total);
 
 
         return receipt;

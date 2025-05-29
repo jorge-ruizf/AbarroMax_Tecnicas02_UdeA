@@ -1,30 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package abarromax;
 
-import entities.AbarroMax;
-import static entities.AbarroMax.inventaryMovementHistory;
-import entities.InventoryMovement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import Repository.InventoryMovementRepository;
+import com.mongodb.client.MongoClient;
+import entities.Inventory;
+import entities.InventoryMovement;
+import entities.InventoryMovementHistory;
+import repository.InventoryRepository;
+import repository.MongoConnection;
 
-/**
- *
- * @author jorge
- */
 public class MovementsUploadJPanelUI extends javax.swing.JPanel {
-
-    /**
-     * Creates new form MovementsMovementJPanelUI
-     */
+    
+    private InventoryMovementHistory inventaryMovementHistory;
+    private Inventory inventory;
     public MovementsUploadJPanelUI() {
         initComponents();
+        this.conectDB();
         printjLabelActualTimeClock();
         PrintInventaryTextAreaUpload();
     }
@@ -118,7 +114,20 @@ public class MovementsUploadJPanelUI extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void conectDB(){
+        
+        try (MongoClient client = MongoConnection.createClient()) {
+            InventoryMovementRepository inventoryMovementRepository = new InventoryMovementRepository(client);
+            inventaryMovementHistory =  inventoryMovementRepository.getInventoryMovements();
+            InventoryRepository inventoryRepository = new InventoryRepository(client);
+            inventory =  inventoryRepository.getInventory();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void printjLabelActualTimeClock() {
         Date now = new Date();
 
@@ -129,7 +138,7 @@ public class MovementsUploadJPanelUI extends javax.swing.JPanel {
     }
 
     private void PrintInventaryTextAreaUpload() {
-        inventaryTextAreaUpload.setText(AbarroMax.inventory.printStockStatus());
+        inventaryTextAreaUpload.setText(this.inventory.printStockStatus());
     }
 
     private void searchCategorieInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory
@@ -168,11 +177,11 @@ public class MovementsUploadJPanelUI extends javax.swing.JPanel {
 
         JOptionPane.showMessageDialog(null, "The inventory is reload", "Sucess", JOptionPane.QUESTION_MESSAGE);
         
-        AbarroMax.inventory.setInventory(inventoryTemp);
+        this.inventory.setInventory(inventoryTemp);
 
         Date now = new Date();
 
-        AbarroMax.inventaryMovementHistory.addInventoryMovement(new InventoryMovement(new HashMap<>(inventoryTemp), now));
+        this.inventaryMovementHistory.addInventoryMovement(new InventoryMovement(new HashMap<>(inventoryTemp), now));
 
     }//GEN-LAST:event_searchCategorieInventory
 

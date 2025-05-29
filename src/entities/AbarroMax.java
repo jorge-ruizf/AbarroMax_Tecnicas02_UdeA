@@ -27,32 +27,6 @@ public class AbarroMax {
     public static Returns returns;
 
     static {
-        categories = new Categories();
-        ArrayList<String> categoriesStrings = new ArrayList();
-        categoriesStrings.add("Medicine");
-        categoriesStrings.add("Clothes");
-        categoriesStrings.add("Consumables");
-        categoriesStrings.add("Technologic");
-        categoriesStrings.add("Home");
-        categories.setCategories(categoriesStrings);
-
-        products = new ArrayList<Product>();
-        products.add(new Product(0, "Paracetamol", 0, "Colsubsidios"));
-        products.add(new Product(1, "Papas 105g", 2, "Margarita"));
-        products.add(new Product(2, "Jeans", 1, "Media Naranja"));
-        products.add(new Product(3, "Laptop 14 pulgadas", 3, "Lenovo"));
-        products.add(new Product(4, "Sofá cama", 4, "Home Elements"));
-        products.add(new Product(5, "Auriculares Bluetooth", 3, "Sony"));
-        products.add(new Product(6, "Camiseta básica", 1, "Koaj"));
-        products.add(new Product(7, "Detergente líquido 2L", 4, "Ariel"));
-        products.add(new Product(8, "Smartphone 128GB", 3, "Samsung"));
-        products.add(new Product(9, "Zapatos deportivos", 1, "Nike"));
-        products.add(new Product(10, "Pastillas de menta", 0, "Halls"));
-        products.add(new Product(11, "Papel higiénico 12 rollos", 4, "Familia"));
-        products.add(new Product(12, "Monitor 24 pulgadas", 3, "LG"));
-        products.add(new Product(13, "Chaqueta impermeable", 1, "North Face"));
-        products.add(new Product(14, "Aspiradora robot", 4, "iRobot"));
-
         // Inicializamos Prices
         prices = new Prices();
 
@@ -165,39 +139,6 @@ public class AbarroMax {
         ProductSale ps12 = new ProductSale(12, 20, 3);
         ProductSale ps13 = new ProductSale(13, 0, 2);
         ProductSale ps14 = new ProductSale(14, 20, 5);
-
-        //Ventas
-        sales = new Sales(new ArrayList<Sale>());
-
-        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps1, ps3)), 1, "Carlos Gómez", 0.10f));
-        sales.getSales().get(0).setDate(Date.from(LocalDate.of(2025, 4, 2).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps10, ps8, ps2)), 2, "Luisa Martínez", 0.00f));
-        sales.getSales().get(1).setDate(Date.from(LocalDate.of(2025, 4, 4).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps3, ps9)), 3, "Andrea Torres", 0.05f));
-        sales.getSales().get(2).setDate(Date.from(LocalDate.of(2025, 4, 6).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps4, ps2)), 4, "Miguel Ángel", 0.15f));
-        sales.getSales().get(3).setDate(Date.from(LocalDate.of(2025, 4, 8).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps5, ps7)), 5, "Valeria Ruiz", 0.00f));
-        sales.getSales().get(4).setDate(Date.from(LocalDate.of(2025, 4, 11).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps6, ps10)), 6, "Jorge Méndez", 0.20f));
-        sales.getSales().get(5).setDate(Date.from(LocalDate.of(2025, 4, 14).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps7, ps9, ps11)), 7, "Natalia Jiménez", 0.10f));
-        sales.getSales().get(6).setDate(Date.from(LocalDate.of(2025, 4, 17).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps8, ps13, ps12, ps3)), 8, "Felipe Salazar", 0.00f));
-        sales.getSales().get(7).setDate(Date.from(LocalDate.of(2025, 4, 21).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps9, ps5)), 9, "Daniela Rivera", 0.05f));
-        sales.getSales().get(8).setDate(Date.from(LocalDate.of(2025, 4, 25).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-        sales.addSale(new Sale(new ArrayList<>(Arrays.asList(ps10, ps14)), 10, "Laura Castro", 0.10f));
-        sales.getSales().get(9).setDate(Date.from(LocalDate.of(2025, 4, 28).atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         returns = new Returns(new ArrayList<Sale>());
         returns.addReturn(sales.removeSaleById(9));

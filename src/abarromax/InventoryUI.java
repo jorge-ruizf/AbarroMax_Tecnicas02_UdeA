@@ -4,13 +4,18 @@
  */
 package abarromax;
 
+import Repository.PricesRepository;
+import Repository.SalesRepository;
+import com.mongodb.client.MongoClient;
 import entities.Categories;
 import entities.AbarroMax;
 import static entities.AbarroMax.categories;
 import static entities.AbarroMax.inventory;
 import static entities.AbarroMax.products;
 import entities.Inventory;
+import entities.Prices;
 import entities.Product;
+import entities.Sales;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
@@ -18,6 +23,10 @@ import javax.swing.SwingUtilities;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import repository.CategoriesRepository;
+import repository.InventoryRepository;
+import repository.MongoConnection;
+import repository.ProductRepository;
 
 /**
  *
@@ -28,9 +37,13 @@ public class InventoryUI extends javax.swing.JDialog {
     /**
      * Creates new form InventoryUI
      */
+    private ArrayList<Product> products;
+    private Inventory inventory;
+    private Categories categories;
     public InventoryUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.conectDB();
         this.printInventoryInScroll();
         this.printComboBoxCategorie();
     }
@@ -234,36 +247,51 @@ public class InventoryUI extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-  private void printInventoryInScroll() {
-    String searchText = JTextFieldSearch.getText().trim();
 
-    // Validar que el texto solo contenga letras (incluye acentos y ñ)
-    if (!searchText.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]*")) {
-        JOptionPane.showMessageDialog(this, "El texto de búsqueda solo debe contener letras, sin espacios ni caracteres especiales.");
-        return;
+    private void conectDB(){
+        
+        try (MongoClient client = MongoConnection.createClient()) {
+            ProductRepository productRepository = new ProductRepository(client);
+            products =  productRepository.getAllProducts();
+            InventoryRepository inventoryRepository = new InventoryRepository(client);
+            inventory =  inventoryRepository.getInventory();
+            CategoriesRepository categoriesRepository = new CategoriesRepository(client);
+            categories =  categoriesRepository.getCategories();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+    private void printInventoryInScroll() {
+        String searchText = JTextFieldSearch.getText().trim();
 
-    int selectedIndex = comboBoxCategorie.getSelectedIndex();
-    if (selectedIndex < 0) {
-        JOptionPane.showMessageDialog(this, "Debe seleccionar una categoría.");
-        return;
+        // Validar que el texto solo contenga letras (incluye acentos y ñ)
+        if (!searchText.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]*")) {
+            JOptionPane.showMessageDialog(this, "El texto de búsqueda solo debe contener letras, sin espacios ni caracteres especiales.");
+            return;
+        }
+
+        int selectedIndex = comboBoxCategorie.getSelectedIndex();
+        if (selectedIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una categoría.");
+            return;
+        }
+
+        Inventory inventory = this.inventory;
+        String inventoryText = inventory.printInventoryForCategorie(
+            selectedIndex - 1,  
+            searchText,
+            this.products,
+            this.categories
+        );
+
+        this.inventaryTextArea.setText(inventoryText);
     }
-
-    Inventory inventory = AbarroMax.inventory;
-    String inventoryText = inventory.printInventoryForCategorie(
-        selectedIndex - 1,  
-        searchText,
-        AbarroMax.products,
-        AbarroMax.categories
-    );
-
-    this.inventaryTextArea.setText(inventoryText);
-}
 
 
     private void printComboBoxCategorie() {
-        for (int i = 0; i < AbarroMax.categories.getCategories().size(); i++) {
-            comboBoxCategorie.addItem(AbarroMax.categories.getCategories().get(i));
+        for (int i = 0; i < this.categories.getCategories().size(); i++) {
+            comboBoxCategorie.addItem(this.categories.getCategories().get(i));
         }
     }
 

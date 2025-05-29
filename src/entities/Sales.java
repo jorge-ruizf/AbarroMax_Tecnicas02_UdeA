@@ -32,7 +32,7 @@ public class Sales {
     public void printLastesReceipt() {
         if (!sales.isEmpty()) {
             Sale lastSale = sales.get(sales.size() - 1);
-            lastSale.printReceipt();
+            //lastSale.printReceipt();
         } else {
             System.out.println("No hay ventas registradas.");
         }
@@ -42,14 +42,14 @@ public class Sales {
     public void printReceipt(int index) {
         if (index >= 0 && index < sales.size()) {
             Sale sale = sales.get(index);
-            sale.printReceipt();
+            //sale.printReceipt();
         } else {
             System.out.println("Índice de venta no válido.");
         }
     }
 
     public float getEarningsForNumberOfDays(int days) {
-        float total = 0;
+        float total = 0f;
 
         if (sales == null) {
             return total;
@@ -61,7 +61,7 @@ public class Sales {
 
         for (Sale sale : sales) {
             if (!sale.getDate().before(limitDate)) {
-                total += sale.getTotal();
+                total += sale.calculateTotalCost();
             }
         }
 
@@ -93,13 +93,13 @@ public class Sales {
         float earningsForProductsDay = 0, earningsForProductsWeek = 0, earningsForProductsMonth = 0;
         
         if(getSalesCountForNumberOfDays(1) == 0){
-            earningsForProductsDay = getEarningsForNumberOfDays(1) / getSalesCountForNumberOfDays(1);
+            earningsForProductsDay = getEarningsForNumberOfDays(1) / 1;
         }
         if(getSalesCountForNumberOfDays(7) == 0){
-            earningsForProductsWeek = getEarningsForNumberOfDays(7) / getSalesCountForNumberOfDays(7);
+            earningsForProductsWeek = getEarningsForNumberOfDays(7) / 7;
         }
         if(getSalesCountForNumberOfDays(30) == 0){
-            earningsForProductsMonth = getEarningsForNumberOfDays(30) / getSalesCountForNumberOfDays(30);
+            earningsForProductsMonth = getEarningsForNumberOfDays(30) / 30;
         }
         float mediumProductEarnings = (earningsForProductsDay + earningsForProductsWeek + earningsForProductsMonth) / 3;
 

@@ -122,7 +122,7 @@ public class Inventory {
     
     public String printInventoryForCategorie(int selectedCategorie, String selectedName, ArrayList<Product> products, Categories categories){
         String text = "";        
-        HashMap<Integer, Integer> inventory = AbarroMax.inventory.getInventory();
+        HashMap<Integer, Integer> inventory = this.getInventory();
 
         // Recorrer el HashMap
         for (Map.Entry<Integer, Integer> entry : inventory.entrySet()) {
