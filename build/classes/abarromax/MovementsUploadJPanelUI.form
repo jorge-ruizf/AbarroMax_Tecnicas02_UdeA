@@ -47,7 +47,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="searchCategorieInventory" alignment="0" pref="299" max="32767" attributes="0"/>
+                      <Component id="uploadInventory" alignment="0" pref="299" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabelActualTimeClock" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="174" max="32767" attributes="0"/>
-                  <Component id="searchCategorieInventory" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="uploadInventory" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -83,7 +83,7 @@
             <Property name="text" type="java.lang.String" value="Actual Time:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="searchCategorieInventory">
+        <Component class="javax.swing.JButton" name="uploadInventory">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="0" type="rgb"/>
@@ -104,7 +104,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchCategorieInventory"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uploadInventory"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelActualTimeClock">

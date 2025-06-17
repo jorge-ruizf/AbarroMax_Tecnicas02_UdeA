@@ -4,6 +4,7 @@ import Repository.InventoryMovementRepository;
 import com.mongodb.client.MongoClient;
 import entities.Inventory;
 import entities.InventoryMovementHistory;
+import javax.swing.JOptionPane;
 import repository.InventoryRepository;
 import repository.MongoConnection;
 
@@ -11,6 +12,8 @@ public class MovementsLoadJPanelUI extends javax.swing.JPanel {
 
     private InventoryMovementHistory inventaryMovementHistory;
     private Inventory inventory;
+    private InventoryRepository inventoryRepository;
+    private InventoryMovementRepository inventoryMovementRepository;
     public MovementsLoadJPanelUI() {
         initComponents();
         this.conectDB();
@@ -108,9 +111,10 @@ public class MovementsLoadJPanelUI extends javax.swing.JPanel {
         try (MongoClient client = MongoConnection.createClient()) {
             InventoryMovementRepository inventoryMovementRepository = new InventoryMovementRepository(client);
             inventaryMovementHistory =  inventoryMovementRepository.getInventoryMovements();
-            InventoryRepository inventoryRepository = new InventoryRepository(client);
-            inventory =  inventoryRepository.getInventory();
-
+            inventoryRepository = new InventoryRepository(client);
+            inventory = inventoryRepository.getInventory();
+        
+            this.inventoryMovementRepository = new InventoryMovementRepository(client);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -128,6 +132,19 @@ public class MovementsLoadJPanelUI extends javax.swing.JPanel {
 
     private void LoadIdInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadIdInventory
         this.inventory.setInventory(this.inventaryMovementHistory.getInventoryMovementHistory().get(jYearChooserIdInventory.getValue()).getInventory());
+        
+        try (MongoClient client = MongoConnection.createClient()) {
+            InventoryRepository tempRepository = new InventoryRepository(client);
+            tempRepository.clearInventory();
+            tempRepository.uploadInventory(this.inventory);
+            
+            InventoryMovementRepository tempInventoryMovementRepository = new InventoryMovementRepository(client);
+            tempInventoryMovementRepository.addInventoryMovement(this.inventory.getInventory());
+            
+            JOptionPane.showMessageDialog(null, "The inventory is reload", "Sucess", JOptionPane.QUESTION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Process detect a error", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_LoadIdInventory
 
 

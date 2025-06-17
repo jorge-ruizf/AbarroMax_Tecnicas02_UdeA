@@ -1,5 +1,6 @@
 package abarromax;
 
+import Repository.InventoryMovementRepository;
 import Repository.PricesRepository;
 import Repository.SalesRepository;
 import com.mongodb.client.MongoClient;
@@ -33,6 +34,8 @@ public class SaleUI extends javax.swing.JDialog {
     
     private MongoClient client;
     private SalesRepository salesRepository;
+    private InventoryRepository inventoryRepository;
+    private InventoryMovementRepository inventoryMovementRepository;
 
     public SaleUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -345,7 +348,7 @@ public class SaleUI extends javax.swing.JDialog {
         this.client = MongoConnection.createClient();
         ProductRepository productRepository = new ProductRepository(client);
         products =  productRepository.getAllProducts();
-        InventoryRepository inventoryRepository = new InventoryRepository(client);
+        this.inventoryRepository = new InventoryRepository(client);
         inventory =  inventoryRepository.getInventory();
         CategoriesRepository categoriesRepository = new CategoriesRepository(client);
         categories =  categoriesRepository.getCategories();
@@ -353,7 +356,8 @@ public class SaleUI extends javax.swing.JDialog {
         prices =  pricesRepository.getPrices();
         this.salesRepository = new SalesRepository(client);
         sales = this.salesRepository.getSales();
-
+        
+        this.inventoryMovementRepository = new InventoryMovementRepository(client);
     }
    
     private void printInventoryInScroll() {
@@ -465,9 +469,29 @@ public class SaleUI extends javax.swing.JDialog {
     private void btnSale(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSale
         String receipt = this.sale.printReceipt(this.products, this.prices);
         this.sales.addSale(this.sale);
+        
+        this.inventory.saleToUpdateInventory(this.sale);
+        
         JOptionPane.showMessageDialog(null, receipt, "Sale Receipt", JOptionPane.INFORMATION_MESSAGE);
-        this.salesRepository.addSale(this.sale);
+        
+        
+        
+        try (MongoClient client = MongoConnection.createClient()) {
+            SalesRepository tempSaleRepository = new SalesRepository(client);
+            tempSaleRepository.addSale(this.sale);
+            
+            InventoryRepository tempRepository = new InventoryRepository(client);
+            tempRepository.clearInventory();
+            tempRepository.uploadInventory(this.inventory);
+            
+            InventoryMovementRepository tempInventoryMovementRepository = new InventoryMovementRepository(client);
+            tempInventoryMovementRepository.addInventoryMovement(this.inventory.getInventory());
+        }
+        
         this.sale = new Sale();
+        
+        printSaleTextArea();
+        printInventoryInScroll();
     }//GEN-LAST:event_btnSale
 
     private void printSaleTextArea() {
