@@ -239,7 +239,7 @@ public class InventoryUI extends javax.swing.JDialog {
 
     // Validar que el texto solo contenga letras (incluye acentos y ñ)
     if (!searchText.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]*")) {
-        JOptionPane.showMessageDialog(this, "El texto de búsqueda solo debe contener letras, sin espacios ni caracteres especiales.");
+        JOptionPane.showMessageDialog(this, "Text must contain only letters, no special characters");
         return;
     }
 

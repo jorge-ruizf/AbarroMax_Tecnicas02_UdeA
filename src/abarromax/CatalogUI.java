@@ -219,9 +219,9 @@ public class CatalogUI extends javax.swing.JDialog {
     private void printInventoryInScroll() {
         String searchTerm = JTextFieldSearch.getText().trim();
 
-    // Validación: no permitir caracteres especiales (solo letras, números y espacios)
+    // Validación: no permitir caracteres especiales (solo letras, números y espacios)"
         if (!searchTerm.matches ("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$")) {
-            JOptionPane.showMessageDialog(this, "El texto de búsqueda solo debe contener letras, sin espacios ni caracteres especiales.", "Error de búsqueda", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Text must contain only letters, no special characters", "Error de búsqueda", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
