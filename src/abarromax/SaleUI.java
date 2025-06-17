@@ -347,7 +347,7 @@ public class SaleUI extends javax.swing.JDialog {
         String searchText = JTextFieldSearch.getText().trim();
 
         if (!searchText.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$")) {
-            JOptionPane.showMessageDialog(this, "El texto de búsqueda solo debe contener letras, sin espacios ni caracteres especiales.", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Text must contain only letters, no special characters", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
             return; // Detener ejecución si la entrada es inválida
     }
 
