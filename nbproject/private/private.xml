@@ -5,16 +5,15 @@
             <url>src/abarromax/SaleUI.java</url>
             <bookmark id="1">
                 <name/>
-                <line>484</line>
+                <line>483</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/MovementsLoadJPanelUI.java</file>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/SaleUI.java</file>
-            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/abarromax/MovementsUploadJPanelUI.java</file>
+            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/userInterface/CatalogUI.java</file>
+            <file>file:/C:/Users/jorge/Documents/NetBeansProjects/AbarroMax/src/userInterface/ProductsUI.java</file>
         </group>
     </open-files>
 </project-private>

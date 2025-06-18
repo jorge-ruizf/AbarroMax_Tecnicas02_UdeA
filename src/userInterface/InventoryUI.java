@@ -4,24 +4,13 @@
  */
 package userInterface;
 
-import Repository.PricesRepository;
-import Repository.SalesRepository;
 import com.mongodb.client.MongoClient;
 import entities.Categories;
-import entities.AbarroMax;
-import static entities.AbarroMax.categories;
-import static entities.AbarroMax.inventory;
-import static entities.AbarroMax.products;
 import entities.Inventory;
-import entities.Prices;
 import entities.Product;
-import entities.Sales;
 import java.awt.Frame;
 import java.util.ArrayList;
-import javax.swing.JComboBox;
 import javax.swing.SwingUtilities;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import repository.CategoriesRepository;
 import repository.InventoryRepository;

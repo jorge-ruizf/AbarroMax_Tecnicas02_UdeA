@@ -1,6 +1,9 @@
 package Repository;
 
 import com.mongodb.client.*;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 import entities.Price;
 import entities.Prices;
 import org.bson.Document;
@@ -44,5 +47,46 @@ public class PricesRepository {
 
         return prices;
     }
+    
+    public void upsertPrice(int productId, int quantity, float price) {
+        // Verifica si ya existe un documento con ese product_id y esa cantidad
+        Document filter = new Document("product_id", productId)
+                .append("prices.quantity", quantity);
+
+        // Si existe esa cantidad, actualiza el precio
+        UpdateResult result = collection.updateOne(
+            filter,
+            Updates.set("prices.$.price", price)
+        );
+
+        // Si no se actualizó nada (porque no existía), agregamos la cantidad y precio
+        if (result.getMatchedCount() == 0) {
+            // Verificamos si el product_id ya existe
+            Document productFilter = new Document("product_id", productId);
+
+            Document newPrice = new Document("quantity", quantity)
+                    .append("price", price);
+
+            UpdateOptions options = new UpdateOptions().upsert(true);
+
+            collection.updateOne(
+                productFilter,
+                Updates.push("prices", newPrice),
+                options
+            );
+        }
+    }
+    
+    public void deletePrice(int productId, int quantity) {
+        Document filter = new Document("product_id", productId);
+        Document priceToRemove = new Document("quantity", quantity);
+
+        collection.updateOne(
+            filter,
+            Updates.pull("prices", priceToRemove)
+        );
+    }
+
+
 
 }

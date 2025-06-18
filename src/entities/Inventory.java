@@ -28,9 +28,11 @@ public class Inventory {
     public void addProduct(int productId, int quantity) {
         if (!inventory.containsKey(productId)) {
             inventory.put(productId, quantity);
-        } else {
-            System.out.println("El producto ya está registrado. Use 'quantityChangeProduct' primero.");
         }
+    }
+    
+    public void deleteProduct(int productId) {
+        this.inventory.remove(productId);
     }
 
     // Mostrar estado actual del stock

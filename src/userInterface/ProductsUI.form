@@ -416,8 +416,8 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnAddProduct1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnDeleteProduct1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnAddPrice" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnDeletePrice" alignment="0" max="32767" attributes="0"/>
                       <Component id="priceId" alignment="1" max="32767" attributes="0"/>
                       <Component id="priceQuantity" alignment="0" max="32767" attributes="0"/>
                       <Component id="pricePrice" alignment="0" max="32767" attributes="0"/>
@@ -452,16 +452,16 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pricePrice" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnAddProduct1" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="btnAddPrice" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnDeleteProduct1" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="btnDeletePrice" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnAddProduct1">
+        <Component class="javax.swing.JButton" name="btnAddPrice">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="0" type="rgb"/>
@@ -482,10 +482,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddProduct1"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddPrice"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnDeleteProduct1">
+        <Component class="javax.swing.JButton" name="btnDeletePrice">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="0" type="rgb"/>
@@ -506,7 +506,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteProduct1"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeletePrice"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
@@ -522,7 +522,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Nexa Extra Light" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ID:"/>
+            <Property name="text" type="java.lang.String" value="Product ID:"/>
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JYearChooser" name="priceId">
@@ -573,8 +573,8 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnDeleteProduct2" alignment="1" max="32767" attributes="0"/>
-                      <Component id="btnAddProduct2" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnDeleteCategorie" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnAddCategorie" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -599,9 +599,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="categorieTextField" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnAddProduct2" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="btnAddCategorie" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnDeleteProduct2" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="btnDeleteCategorie" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -616,7 +616,7 @@
             <Property name="text" type="java.lang.String" value="Name:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAddProduct2">
+        <Component class="javax.swing.JButton" name="btnAddCategorie">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="0" type="rgb"/>
@@ -637,10 +637,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddProduct2"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddCategorie"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnDeleteProduct2">
+        <Component class="javax.swing.JButton" name="btnDeleteCategorie">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="0" type="rgb"/>
@@ -661,7 +661,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteProduct2"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteCategorie"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">

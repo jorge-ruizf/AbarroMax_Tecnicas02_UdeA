@@ -1,14 +1,11 @@
 package repository;
 
 import com.mongodb.client.*;
-import com.mongodb.client.model.Filters;
 import entities.Categories;
 import org.bson.Document;
-import org.bson.conversions.Bson;
+import com.mongodb.client.model.Updates;
 
-import java.util.ArrayList;
 import java.util.List;
-import org.bson.types.ObjectId;
 
 public class CategoriesRepository {
     private final MongoCollection<Document> collection;
@@ -33,4 +30,19 @@ public class CategoriesRepository {
 
         return categories;
     }
+    
+    public void addCategory(String category) {
+        collection.updateOne(
+            new Document(),
+            Updates.addToSet("categories", category)
+        );
+    }
+
+    public void deleteCategory(String category) {
+        collection.updateOne(
+            new Document(),
+            Updates.pull("categories", category)
+        );
+    }
+
 }
