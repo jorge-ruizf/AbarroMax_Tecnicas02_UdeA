@@ -152,4 +152,16 @@ public class Inventory {
          }
     }
     
+    
+    public ArrayList<Product> getProductsByCategory(int categoryIndex, ArrayList<Product> allProducts) {
+        ArrayList<Product> filtered = new ArrayList<>();
+        for (Product p : allProducts) {
+            if (p.getCategoryId() == categoryIndex) {
+                filtered.add(p);
+            }
+        }
+        return filtered;
+    }
+
+    
 }

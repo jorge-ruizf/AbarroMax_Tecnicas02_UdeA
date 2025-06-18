@@ -6,7 +6,6 @@ import entities.Categories;
 import entities.Inventory;
 import entities.Prices;
 import entities.Product;
-import entities.Sales;
 import java.awt.Frame;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -24,15 +23,17 @@ public class CatalogUI extends javax.swing.JDialog {
     private Inventory inventory;
     private Categories categories;
     private Prices prices;
-    private Sales sales;
+    private int indexCatalog;
+    private ArrayList<Product> filteredProducts; // productos filtrados al buscar categoría
+    private int currentIndex = 0;
 
     public CatalogUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.conectDB();
         this.printComboBoxCategorie();
-        this.printInventoryInScroll();
-        this.showImage("Pastillas de menta");
+        this.indexCatalog = 0;
+        this.filteredProducts = this.inventory.getProductsByCategory(-1, this.products);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,10 +53,16 @@ public class CatalogUI extends javax.swing.JDialog {
         home1 = new javax.swing.JButton();
         panelRight = new javax.swing.JPanel();
         imgRight = new javax.swing.JLabel();
+        nameRightTitle = new javax.swing.JLabel();
         nameRight = new javax.swing.JLabel();
-        jLabelName1 = new javax.swing.JLabel();
         priceRight = new javax.swing.JLabel();
         nameRight1 = new javax.swing.JLabel();
+        panelRight1 = new javax.swing.JPanel();
+        imgLeft = new javax.swing.JLabel();
+        nameLeftTitle = new javax.swing.JLabel();
+        nameLeft = new javax.swing.JLabel();
+        priceLeft = new javax.swing.JLabel();
+        priceLeftTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 400));
@@ -90,7 +97,7 @@ public class CatalogUI extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(before, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(382, 382, 382))
         );
@@ -172,7 +179,7 @@ public class CatalogUI extends javax.swing.JDialog {
         home.setPreferredSize(new java.awt.Dimension(518, 519));
         home.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goHome(evt);
+                leftArrow(evt);
             }
         });
 
@@ -186,7 +193,7 @@ public class CatalogUI extends javax.swing.JDialog {
         home1.setPreferredSize(new java.awt.Dimension(518, 519));
         home1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                home1goHome(evt);
+                rightArrow(evt);
             }
         });
 
@@ -212,14 +219,14 @@ public class CatalogUI extends javax.swing.JDialog {
         imgRight.setMinimumSize(new java.awt.Dimension(225, 225));
         imgRight.setPreferredSize(new java.awt.Dimension(225, 225));
 
-        nameRight.setFont(new java.awt.Font("Nexa Extra Light", 0, 24)); // NOI18N
-        nameRight.setText("Name:");
-        nameRight.setToolTipText("");
+        nameRightTitle.setFont(new java.awt.Font("Nexa Extra Light", 0, 24)); // NOI18N
+        nameRightTitle.setText("Name:");
+        nameRightTitle.setToolTipText("");
 
-        jLabelName1.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
-        jLabelName1.setText("Name");
-        jLabelName1.setToolTipText("");
-        jLabelName1.setMaximumSize(new java.awt.Dimension(192, 99));
+        nameRight.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
+        nameRight.setText("Name");
+        nameRight.setToolTipText("");
+        nameRight.setMaximumSize(new java.awt.Dimension(192, 99));
 
         priceRight.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
         priceRight.setText("Price");
@@ -238,28 +245,83 @@ public class CatalogUI extends javax.swing.JDialog {
                 .addComponent(imgRight, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameRight)
+                    .addComponent(nameRightTitle)
                     .addComponent(nameRight1)
                     .addComponent(priceRight)
-                    .addComponent(jLabelName1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameRight, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRightLayout.setVerticalGroup(
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRightLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelRightLayout.createSequentialGroup()
-                        .addComponent(nameRight)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(nameRight1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(priceRight)
-                        .addGap(65, 65, 65))
-                    .addComponent(imgRight, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addComponent(nameRightTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(nameRight1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(priceRight)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRightLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imgRight, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+
+        imgLeft.setText("img not found");
+        imgLeft.setMaximumSize(new java.awt.Dimension(225, 225));
+        imgLeft.setMinimumSize(new java.awt.Dimension(225, 225));
+        imgLeft.setPreferredSize(new java.awt.Dimension(225, 225));
+
+        nameLeftTitle.setFont(new java.awt.Font("Nexa Extra Light", 0, 24)); // NOI18N
+        nameLeftTitle.setText("Name:");
+        nameLeftTitle.setToolTipText("");
+
+        nameLeft.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
+        nameLeft.setText("Name");
+        nameLeft.setToolTipText("");
+        nameLeft.setMaximumSize(new java.awt.Dimension(192, 99));
+
+        priceLeft.setFont(new java.awt.Font("Nexa Extra Light", 0, 18)); // NOI18N
+        priceLeft.setText("Price");
+        priceLeft.setToolTipText("");
+
+        priceLeftTitle.setFont(new java.awt.Font("Nexa Extra Light", 0, 24)); // NOI18N
+        priceLeftTitle.setText("Unit Price");
+        priceLeftTitle.setToolTipText("");
+
+        javax.swing.GroupLayout panelRight1Layout = new javax.swing.GroupLayout(panelRight1);
+        panelRight1.setLayout(panelRight1Layout);
+        panelRight1Layout.setHorizontalGroup(
+            panelRight1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRight1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(imgLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelRight1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nameLeftTitle)
+                    .addComponent(priceLeftTitle)
+                    .addComponent(priceLeft)
+                    .addComponent(nameLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelRight1Layout.setVerticalGroup(
+            panelRight1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRight1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(nameLeftTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(priceLeftTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(priceLeft)
+                .addContainerGap(71, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRight1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imgLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,11 +334,13 @@ public class CatalogUI extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(inventaryText, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(inventaryText, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(panelRight1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(21, 21, 21)
                         .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -284,15 +348,20 @@ public class CatalogUI extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(inventaryText, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inventaryText)
-                    .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelRight1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(39, 39, 39))
         );
 
         pack();
@@ -303,26 +372,63 @@ public class CatalogUI extends javax.swing.JDialog {
         try (MongoClient client = MongoConnection.createClient()) {
             ProductRepository productRepository = new ProductRepository(client);
             products =  productRepository.getAllProducts();
-            InventoryRepository inventoryRepository = new InventoryRepository(client);
-            inventory =  inventoryRepository.getInventory();
             CategoriesRepository categoriesRepository = new CategoriesRepository(client);
             categories =  categoriesRepository.getCategories();
             PricesRepository pricesRepository = new PricesRepository(client);
             prices =  pricesRepository.getPrices();
-            //SalesRepository salesRepository = new SalesRepository(client);
-            //sales =  salesRepository.getSales();
+            InventoryRepository inventoryRepository = new InventoryRepository(client);
+            inventory = inventoryRepository.getInventory();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    private void printInventoryInScroll() {
-        // Si se pasa la validación, procede
-        String inventaryText = this.inventory.printInventoryCatalog(comboBoxCategorie.getSelectedIndex() - 1, "" ,this.products, this.categories, this.prices );
-        this.inventaryTextArea.setText(inventaryText);
-            System.out.println(inventaryText);
+    private void searchCategorie() {
+        int selectedIndex = comboBoxCategorie.getSelectedIndex() - 1;
+        this.filteredProducts = this.inventory.getProductsByCategory(selectedIndex, this.products);
+        this.currentIndex = 0;
+        this.updateCatalogView();
     }
+    
+    
+    private void updateCatalogView() {
+        // Asegura que haya productos
+        if (filteredProducts == null || filteredProducts.isEmpty()) {
+            nameLeft.setText("Sin productos");
+            priceLeft.setText("");
+            imgLeft.setIcon(null);
+            nameRight.setText("");
+            priceRight.setText("");
+            imgRight.setIcon(null);
+            return;
+        }
+
+        // Producto izquierdo
+        if (currentIndex < filteredProducts.size()) {
+            Product left = filteredProducts.get(currentIndex);
+            nameLeft.setText(left.getName());
+            priceLeft.setText("$" + prices.getPriceForQuantityOne(left.getId())); // debes tener este método en Prices
+            showImage(left.getName(), imgLeft);
+        } else {
+            nameLeft.setText("");
+            priceLeft.setText("");
+            imgLeft.setIcon(null);
+        }
+
+        // Producto derecho
+        if (currentIndex + 1 < filteredProducts.size()) {
+            Product right = filteredProducts.get(currentIndex + 1);
+            nameRight.setText(right.getName());
+            priceRight.setText("$" + prices.getPriceForQuantityOne(right.getId()));
+            showImage(right.getName(), imgRight);
+        } else {
+            nameRight.setText("");
+            priceRight.setText("");
+            imgRight.setIcon(null);
+        }
+    }
+
 
     private void printComboBoxCategorie() {
         for (int i = 0; i < this.categories.getCategories().size(); i++) {
@@ -330,10 +436,15 @@ public class CatalogUI extends javax.swing.JDialog {
         }
     }
     
-    private void showImage(String name){             
+    private void printCatalog(int indexAmount){
+        this.indexCatalog += indexAmount;
+    }
+    
+    private void showImage(String name, JLabel label) {
         java.net.URL imgUrl = getClass().getResource("/images/products/" + name + ".jpg");
         if (imgUrl == null) {
             System.err.println("No se encontró la imagen: " + name);
+            label.setIcon(null);
             return;
         }
 
@@ -346,32 +457,32 @@ public class CatalogUI extends javax.swing.JDialog {
         int maxWidth = 500;
         int maxHeight = 500;
 
-        // Escala proporcionalmente
         float widthRatio = (float) maxWidth / originalWidth;
         float heightRatio = (float) maxHeight / originalHeight;
-        float scale = Math.min(widthRatio, heightRatio); // la menor escala mantiene proporción
+        float scale = Math.min(widthRatio, heightRatio);
 
         int newWidth = Math.round(originalWidth * scale);
         int newHeight = Math.round(originalHeight * scale);
 
         Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        
-        this.imgRight.setIcon(scaledIcon);
-        this.imgRight.setHorizontalAlignment(JLabel.CENTER);
-        this.imgRight.setVerticalAlignment(JLabel.CENTER);
+
+        label.setIcon(scaledIcon);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setVerticalAlignment(JLabel.CENTER);
+    
     }
 
     private void searchCategorieInventory(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCategorieInventory
-        this.printInventoryInScroll();
+        //this.printInventoryInScroll();
     }//GEN-LAST:event_searchCategorieInventory
 
-    private void goHome(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goHome
-        this.dispose();
-        Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
-        Main main = new Main(parent, true);
-        main.setVisible(true);
-    }//GEN-LAST:event_goHome
+    private void leftArrow(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftArrow
+        if (filteredProducts != null && currentIndex - 2 >= 0) {
+            currentIndex -= 2;
+            updateCatalogView();
+        }
+    }//GEN-LAST:event_leftArrow
 
     private void goBefore(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBefore
         this.dispose();
@@ -384,9 +495,12 @@ public class CatalogUI extends javax.swing.JDialog {
 
     }//GEN-LAST:event_comboBoxCategorieActionPerformed
 
-    private void home1goHome(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home1goHome
-        // TODO add your handling code here:
-    }//GEN-LAST:event_home1goHome
+    private void rightArrow(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightArrow
+       if (this.filteredProducts != null && currentIndex + 2 < filteredProducts.size()) {
+            currentIndex += 2;
+            updateCatalogView();
+        }
+    }//GEN-LAST:event_rightArrow
 
     /**
      * @param args the command line arguments
@@ -436,17 +550,23 @@ public class CatalogUI extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> comboBoxCategorie;
     private javax.swing.JButton home;
     private javax.swing.JButton home1;
+    private javax.swing.JLabel imgLeft;
     private javax.swing.JLabel imgRight;
     private javax.swing.JScrollPane inventaryText;
     private javax.swing.JTextArea inventaryTextArea;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelName1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel nameLeft;
+    private javax.swing.JLabel nameLeftTitle;
     private javax.swing.JLabel nameRight;
     private javax.swing.JLabel nameRight1;
+    private javax.swing.JLabel nameRightTitle;
     private javax.swing.JPanel panelRight;
+    private javax.swing.JPanel panelRight1;
+    private javax.swing.JLabel priceLeft;
+    private javax.swing.JLabel priceLeftTitle;
     private javax.swing.JLabel priceRight;
     private javax.swing.JButton searchCategorieInventory;
     // End of variables declaration//GEN-END:variables

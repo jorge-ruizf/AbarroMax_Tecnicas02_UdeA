@@ -31,5 +31,16 @@ public class Prices {
         }
         prices.get(productId).put(minQuantity, price);
     }
+    
+    public float getPriceForQuantityOne(int productId) {
+        if (prices.containsKey(productId)) {
+            HashMap<Integer, Price> priceTiers = prices.get(productId);
+            if (priceTiers.containsKey(1)) {
+                return priceTiers.get(1).getPrice(); // suponiendo que Price tiene getValue()
+            }
+        }
+        return 0.0f; // o puedes lanzar una excepción o retornar null si prefieres
+    }
+
 
 }
